@@ -1,0 +1,103 @@
+body {
+  text-align: center;
+}
+
+#header {
+  display: inline-box;
+}
+
+#gameBoard {
+  display: inline-block;
+  position: relative;
+  height: 800px;
+  width: 600px;
+  background: linear-gradient(180deg,hsl(201, 97%, 30%), hsl(201, 97%, 35%)) ;
+  border: 15px solid 	hsl(201, 97%, 15%);
+}
+
+#start {
+  text-align: center;
+  background-color: black;
+  color: white;
+}
+
+#level1 {
+  height: 100%;
+  width: 100%;
+} 
+
+#goal {
+  display: inline-block;
+  height: 15px;
+  width: 80px;
+  background-color: grey;
+  text-align: center;
+}
+
+.obsWhite {
+  transition-duration: 500ms;
+  transition-timing-function: linear;
+  height: 15px;
+  width: 250px;
+  background-color: white;
+}
+
+#white1:active {
+  transition-duration: 500ms;
+  transition-timing-function: linear;
+  transform: translateX(-350px);
+}
+
+#white2:active {
+  transition-duration: 500ms;
+  transition-timing-function: linear;
+  transform: translateX(350px);
+}
+
+#white1 {
+margin-top: 150px;
+margin-left: 350px;
+}
+
+#white2 {
+margin-top: 150px;
+}
+
+.obsRed {
+  position: absolute;
+  height: 15px;
+  width: 150px;
+  background-color: rgb(128,0,0);
+}
+
+.obsRed:active {
+  transition-duration: 60s;
+  transition-timing-function: linear;
+  transform: rotate(14400deg);
+}
+
+#red1 {
+  margin: 200px 0 0 30px;
+}
+
+#red2 {
+  margin-top: 200px;
+  right: 30px;
+}
+
+#red3 {
+  margin: 200px 0 0 225px;
+}
+
+#ball {
+  position: absolute;
+  display: inline-block;
+  text-align: center;
+  margin-top: 380px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: relative;
+  background: radial-gradient(circle at 50% 120%,  #323232, #0a0a0a 80%, #000000 100%);
+}
+
