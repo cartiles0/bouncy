@@ -8,6 +8,8 @@ body {
 
 #gameBoard {
   display: inline-block;
+  transition-duration: 500ms;
+  transition-timing-function: linear;
   position: relative;
   height: 800px;
   width: 600px;
@@ -51,15 +53,19 @@ body {
 }
 
 #white1 {
-margin-top: 150px;
-margin-left: 350px;
+  position: absolute;
+  top: 150px;
+  right: 0;
 }
 
 #white2 {
-margin-top: 150px;
+  position: absolute;
+  top: 300px;
 }
 
 .obsRed {
+  transition-duration: 500ms;
+  transition-timing-function: linear;
   position: absolute;
   height: 15px;
   width: 150px;
@@ -73,16 +79,18 @@ margin-top: 150px;
 }
 
 #red1 {
-  margin: 200px 0 0 30px;
+  top: 500px;
+  left: 30px;
 }
 
 #red2 {
-  margin-top: 200px;
+  top: 500px;
   right: 30px;
 }
 
 #red3 {
-  margin: 200px 0 0 225px;
+  top: 500px;
+  left: 225px;
 }
 
 #ball {
