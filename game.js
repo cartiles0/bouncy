@@ -1,10 +1,12 @@
 function BouncyGame () {
   var self = this;
   this.ball = document.getElementById("ball");
+  this.level = 1;
   this.ballLeft = 270;
   this.ballTop = 720;
   this.directionY = 1;
   this.directionX = 1;
+  this.speed = 10;
 
   this.init = function () {
     this.movement();
@@ -14,8 +16,8 @@ function BouncyGame () {
     setInterval(function () {
       self.ball.style.left = self.ballLeft + 'px';
       self.ball.style.top = self.ballTop + 'px';
-      self.ballLeft -= 10 * self.directionX; 
-      self.ballTop -= 10 * self.directionY;
+      self.ballLeft -= self.speed * self.directionX; 
+      self.ballTop -= self.speed * self.directionY;
 
       if (self.ballLeft <= 0 || self.ballLeft >= 550) {
         self.directionX *= -1;
@@ -24,24 +26,18 @@ function BouncyGame () {
         self.directionY *= -1;
       }
       if (self.ballTop <= 0) {
-        if (self.ballLeft < 260 || self.ballLeft > 340) {
-          self.directionY *= -1;
+        if (self.ballLeft > 235 && self.ballLeft < 340) {
+          self.speed = 0;
+          //this.levelUp();
         }
-        if (self.ballLeft >= 260 && self.ballLeft <= 340) {
-          console.log("LevelUp");
-        }
+        else { self.directionY *= -1 }
       }
-      /*if (self.ballTop <= 0 || self.ballTop >= 750) {
-        if (self.ballTop <= 0 && self.ballLeft >= 260 && self.ballLeft <= 340) {
-          console.log("LevelUp");
-        }
-        else {self.directionY *= -1}
-      }*/
     }, 50)
   }
 
   this.levelUp = function() {
-
+    self.level++;
+    document.getElementById("level").innerHTML = self.level;
   }
 
 }
