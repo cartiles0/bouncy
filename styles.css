@@ -61,19 +61,7 @@ body {
   width: 150px;
 }
 
-#red1 {
-  transition-duration: 60s;
-  transition-timing-function: linear;
-  transform: rotate(14400deg);
-}
-
-#red2 {
-  transition-duration: 60s;
-  transition-timing-function: linear;
-  transform: rotate(14400deg);
-}
-
-#red3 {
+#red1, #red2, #red3  {
   transition-duration: 60s;
   transition-timing-function: linear;
   transform: rotate(14400deg);
