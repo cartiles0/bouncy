@@ -9,10 +9,11 @@ function BouncyGame () {
   this.speed = 10;
 
   this.init = function () {
-    this.movement();
+    this.movementBall();
+    this.obstacles();
   }
 
-  this.movement = function () {   
+  this.movementBall = function () {   
     setInterval(function () {
       self.ball.style.left = self.ballLeft + 'px';
       self.ball.style.top = self.ballTop + 'px';
@@ -35,9 +36,31 @@ function BouncyGame () {
     }, 50)
   }
 
-  this.levelUp = function() {
+  this.levelUp = function () {
     self.level++;
     document.getElementById("level").innerHTML = self.level;
+  }
+
+  // Red Obstacles
+  // Red Brick 1
+  this.redBrick1 = document.getElementById('red1');
+  this.redBrick1Left = 30;
+  // Red Brick 2
+  this.redBrick2 = document.getElementById('red2');
+  this.redBrick2Left = 225;
+  // Red Brick 3
+  this.redBrick3 = document.getElementById('red3');
+  this.redBrick3Left = 420;
+ 
+  this.redBrickTopAll = 500;
+
+  this.obstacles = function () {
+    self.redBrick1.style.left = self.redBrick1Left + 'px';
+    self.redBrick1.style.top = self.redBrickTopAll + 'px';
+    self.redBrick2.style.left = self.redBrick2Left + 'px';
+    self.redBrick2.style.top = self.redBrickTopAll + 'px';
+    self.redBrick3.style.left = self.redBrick3Left + 'px';
+    self.redBrick3.style.top = self.redBrickTopAll + 'px';
   }
 
 }

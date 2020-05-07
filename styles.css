@@ -64,33 +64,28 @@ body {
 }
 
 .obsRed {
-  transition-duration: 500ms;
-  transition-timing-function: linear;
+  background-color: rgb(128,0,0);
   position: absolute;
   height: 15px;
   width: 150px;
-  background-color: rgb(128,0,0);
 }
 
-.obsRed:active {
+#red1 {
   transition-duration: 60s;
   transition-timing-function: linear;
   transform: rotate(14400deg);
 }
 
-#red1 {
-  top: 500px;
-  left: 30px;
-}
-
 #red2 {
-  top: 500px;
-  right: 30px;
+  transition-duration: 60s;
+  transition-timing-function: linear;
+  transform: rotate(14400deg);
 }
 
 #red3 {
-  top: 500px;
-  left: 225px;
+  transition-duration: 60s;
+  transition-timing-function: linear;
+  transform: rotate(14400deg);
 }
 
 #ball {
