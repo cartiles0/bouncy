@@ -42,6 +42,7 @@ function BouncyGame () {
   }
 
   // Red Obstacles
+  this.redBrickTopAll = 500;
   // Red Brick 1
   this.redBrick1 = document.getElementById('red1');
   this.redBrick1Left = 30;
@@ -51,8 +52,16 @@ function BouncyGame () {
   // Red Brick 3
   this.redBrick3 = document.getElementById('red3');
   this.redBrick3Left = 420;
- 
-  this.redBrickTopAll = 500;
+
+  // White Obstacles
+  // White Obstacle 1
+  this.whiteBrick1 = document.getElementById('white1');
+  this.whiteBrick1Left = 350;
+  this.whiteBrick1Top = 150;
+  // White Obstacle 2
+  this.whiteBrick2 = document.getElementById('white2');
+  this.whiteBrick2Left = 0;
+  this.whiteBrick2Top = 300;
 
   this.obstacles = function () {
     self.redBrick1.style.left = self.redBrick1Left + 'px';
@@ -61,6 +70,11 @@ function BouncyGame () {
     self.redBrick2.style.top = self.redBrickTopAll + 'px';
     self.redBrick3.style.left = self.redBrick3Left + 'px';
     self.redBrick3.style.top = self.redBrickTopAll + 'px';
+
+    self.whiteBrick1.style.left = self.whiteBrick1Left + 'px';
+    self.whiteBrick1.style.top = self.whiteBrick1Top + 'px';    
+    self.whiteBrick2.style.left = self.whiteBrick2Left + 'px';
+    self.whiteBrick2.style.top = self.whiteBrick2Top + 'px';   
   }
 
 }

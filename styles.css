@@ -35,38 +35,29 @@ body {
 .obsWhite {
   transition-duration: 500ms;
   transition-timing-function: linear;
-  height: 15px;
+  height: 18px;
   width: 250px;
   background-color: white;
 }
 
-#white1:active {
-  transition-duration: 500ms;
-  transition-timing-function: linear;
-  transform: translateX(-350px);
-}
-
-#white2:active {
-  transition-duration: 500ms;
-  transition-timing-function: linear;
-  transform: translateX(350px);
-}
-
 #white1 {
   position: absolute;
-  top: 150px;
-  right: 0;
+  /*transition-duration: 500ms;
+  transition-timing-function: linear;
+  transform: translateX(-350px);*/
 }
 
 #white2 {
   position: absolute;
-  top: 300px;
+  /*transition-duration: 500ms;
+  transition-timing-function: linear;
+  transform: translateX(350px);*/
 }
 
 .obsRed {
   background-color: rgb(128,0,0);
   position: absolute;
-  height: 15px;
+  height: 18px;
   width: 150px;
 }
 
