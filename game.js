@@ -20,7 +20,7 @@ function BouncyGame () {
       self.ball.style.top = self.ballTop + 'px';
       self.ballLeft -= self.speed * self.directionX; 
       self.ballTop -= self.speed * self.directionY;
-
+      
       if (self.ballLeft <= 0 || self.ballLeft >= 550) {
         self.directionX *= -1;
       }
@@ -89,10 +89,10 @@ function BouncyGame () {
       self.whiteBrick1Left -= self.speedWhite * self.dirWhiteX;
       self.whiteBrick2Left -= -self.speedWhite * self.dirWhiteX;
       console.log(self.whiteBrick2Left);
-      if (self.whiteBrick1Left <= -350 || self.whiteBrick1Left >= 700 ||  self.whiteBrick2Left <= -180 || self.whiteBrick2Left >= 530) {
+      if (self.whiteBrick1Left <= -350 || self.whiteBrick1Left >= 700 ||  self.whiteBrick2Left <= 0 || self.whiteBrick2Left >= 350) {
         self.dirWhiteX *= -1;
       }
-  }, 50)
+  }, 30)
   }
 
 }
