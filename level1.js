@@ -10,24 +10,24 @@ class level1 extends Phaser.Scene {
     this.load.image('ball', 'assets/ball.png');
   }
 
-  //drag
-
   create() {
-    this.board = this.add.image(300, 400, 'board');
+    
+    this.board = this.add.sprite(300, 400, 'board');
 
-    this.green1 = this.add.image(130, 190, 'obs1');
-    this.green2 = this.add.image(475, 340, 'obs1');
+    this.green1 = this.add.sprite(130, 190, 'obs1');
+    this.green1.onCollide = true;
+    this.green2 = this.add.sprite(475, 340, 'obs1');
 
     this.yell1 = this.add.sprite(100, 550, 'obs2');
     this.yell2 = this.add.sprite(300, 550, 'obs2');
     this.yell3 = this.add.sprite(500, 550, 'obs2');
     
-    var ball = this.physics.add.sprite(300, 750, 'ball');
-    var test = this.physics.add.group();
-    test.checkWorldBounds = true;
+    this.ball = this.add.image(300, 750, 'ball');
+    this.ball.onCollide = true;
+    this.ball.checkWorldBounds = true;
 
-    ball.setCollideWorldBounds(true);
-    ball.body.onWorldBounds = true;    
+    var test = this.physics.add.group();
+    test.checkWorldBounds = true;   
 
     this.tweenGreen1 = this.tweens.add({
       targets: this.green1,
@@ -44,17 +44,33 @@ class level1 extends Phaser.Scene {
       repeat: 500
     })
 
-    this.input.keyboard.on('keyup_w', function(event){
-      var foo = this.physics.add.image(this.image.x, this.image.y, 'ball');
-      foo.setVelocity
-    },this)
+    this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    this.key_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
+    this.physics.add.collider(this.ball, this.board, this.green1, this.green2, this.yell1, this.yell2, this.yell3, null, this);
+    this.physics.add.collider(this.ball, this.board, this.green1, this.green2, this.yell1, this.yell2, this.yell3, null, this);
   }
 
 update() {
   this.yell1.angle += 4;
   this.yell2.angle += 4;
   this.yell3.angle += 4;
+
+  if (this.key_W.isDown) {
+    this.ball.y -= 3;
+  }
+  if (this.key_S.isDown) {
+    this.ball.y += 3;
+  }
+  if (this.key_A.isDown) {
+    this.ball.x -= 3;
+  }
+  if (this.key_D.isDown) {
+    this.ball.x += 3;
+  }
+
 }
 
 render() {
