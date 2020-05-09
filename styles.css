@@ -31,17 +31,10 @@ body {
 }
 
 .obsWhite {
+  position: absolute;
   height: 18px;
   width: 250px;
   background-color: white;
-}
-
-#white1 {
-  position: absolute;
-}
-
-#white2 {
-  position: absolute;
 }
 
 .obsRed {
@@ -49,9 +42,6 @@ body {
   position: absolute;
   height: 18px;
   width: 150px;
-}
-
-#red1, #red2, #red3  {
   transition-duration: 60s;
   transition-timing-function: linear;
   transform: rotate(14400deg);

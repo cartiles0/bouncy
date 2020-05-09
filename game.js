@@ -54,6 +54,7 @@ function BouncyGame () {
     // Red Brick 3
     this.redBrick3 = document.getElementById('red3');
     this.redBrick3Left = 420;
+    this.redBrick = document.getElementById('red1');
 
     // White Obstacles
     // White Obstacle 1
@@ -73,13 +74,19 @@ function BouncyGame () {
   this.obsMovement = function () {
     setInterval(function () {
     // Red Obstacles
-    self.redBrick1.style.left = self.redBrick1Left + 'px';
-    self.redBrick1.style.top = self.redBrickTopAll + 'px';
-    self.redBrick2.style.left = self.redBrick2Left + 'px';
-    self.redBrick2.style.top = self.redBrickTopAll + 'px';
-    self.redBrick3.style.left = self.redBrick3Left + 'px';
-    self.redBrick3.style.top = self.redBrickTopAll + 'px';
-    }, 50)
+      self.redBrick1.style.left = self.redBrick1Left + 'px';
+      self.redBrick1.style.top = self.redBrickTopAll + 'px';
+      self.redBrick2.style.left = self.redBrick2Left + 'px';
+      self.redBrick2.style.top = self.redBrickTopAll + 'px';
+      self.redBrick3.style.left = self.redBrick3Left + 'px';
+      self.redBrick3.style.top = self.redBrickTopAll + 'px';
+      //self.redBrick1.style.top = self.redBrickTopAll 
+      //self.redBrick.style.transform = "rotate(75deg)";
+      ;
+      
+      console.log(self.redBrick.style.top);
+    }, 500);
+    
     // White Obstacles
     setInterval(function () {
       self.whiteBrick1.style.left = self.whiteBrick1Left + 'px';
@@ -88,11 +95,10 @@ function BouncyGame () {
       self.whiteBrick2.style.top = self.whiteBrick2Top + 'px';   
       self.whiteBrick1Left -= self.speedWhite * self.dirWhiteX;
       self.whiteBrick2Left -= -self.speedWhite * self.dirWhiteX;
-      console.log(self.whiteBrick2Left);
       if (self.whiteBrick1Left <= -350 || self.whiteBrick1Left >= 700 ||  self.whiteBrick2Left <= 0 || self.whiteBrick2Left >= 350) {
         self.dirWhiteX *= -1;
       }
-  }, 30)
+  }, 50)
   }
 
 }
