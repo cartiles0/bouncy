@@ -10,11 +10,13 @@ class level1 extends Phaser.Scene {
     this.load.image('ball', 'assets/ball.png');
   }
 
+  //drag
+
   create() {
     this.board = this.add.image(300, 400, 'board');
 
-    this.green1 = this.add.image(130, 200, 'obs1');
-    this.green2 = this.add.image(475, 350, 'obs1');
+    this.green1 = this.add.image(130, 190, 'obs1');
+    this.green2 = this.add.image(475, 340, 'obs1');
 
     this.yell1 = this.add.sprite(100, 550, 'obs2');
     this.yell2 = this.add.sprite(300, 550, 'obs2');
@@ -41,12 +43,24 @@ class level1 extends Phaser.Scene {
       yoyo: true,
       repeat: 500
     })
+
+    this.input.keyboard.on('keyup_w', function(event){
+      var foo = this.physics.add.image(this.image.x, this.image.y, 'ball');
+      foo.setVelocity
+    },this)
+
   }
 
-update () {
+update() {
   this.yell1.angle += 4;
   this.yell2.angle += 4;
   this.yell3.angle += 4;
+}
+
+render() {
+  this.debug.spriteInfo(this.yell1, 32, 32);
+  this.debug.spriteInfo(this.yell2, 32, 32);
+  this.debug.spriteInfo(this.yell3, 32, 32);
 }
 
 }
