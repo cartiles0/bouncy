@@ -11,7 +11,8 @@ class level1 extends Phaser.Scene {
   }
 
   create() {
-    
+    this.physics.world.setBoundsCollision(true, true, true, true);
+
     this.board = this.add.sprite(300, 400, 'board');
 
     this.green1 = this.add.sprite(130, 190, 'obs1');
@@ -22,12 +23,11 @@ class level1 extends Phaser.Scene {
     this.yell2 = this.add.sprite(300, 550, 'obs2');
     this.yell3 = this.add.sprite(500, 550, 'obs2');
     
-    this.ball = this.add.image(300, 750, 'ball');
-    this.ball.onCollide = true;
-    this.ball.checkWorldBounds = true;
+    this.ball = this.physics.add.image(300, 750, 'ball');
+    this.ball.setCollideWorldBounds(true);
 
-    var test = this.physics.add.group();
-    test.checkWorldBounds = true;   
+    //this.ball.physics.startSystem(Phaser.physics.ARCADE);
+    this.ball.body.velocity.setTo(200, 200);
 
     this.tweenGreen1 = this.tweens.add({
       targets: this.green1,
