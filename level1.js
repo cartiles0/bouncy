@@ -12,7 +12,6 @@ class level1 extends Phaser.Scene {
   }
 
   create() {
-    //this.physics.world.setBoundsCollision(true, true, true, true);
     this.dir1 = 1;
     this.dir2 = -1;
     this.board = this.add.sprite(300, 400, 'board');
@@ -31,77 +30,20 @@ class level1 extends Phaser.Scene {
     
     this.ball = this.physics.add.image(300, 750, 'ball');
     this.ball.setCollideWorldBounds(true).setBounce(1);
-    //this.ball.setData('obs1', true);
 
-    this.physics.add.collider(this.ball, this.green1, this.greenCol1, null, this);
-    this.physics.add.collider(this.ball, this.green2, this.greenCol2, null, this);
-    this.physics.add.collider(this.ball, this.yell1, this.yellowCol1, null, this);
-    this.physics.add.collider(this.ball, this.yell2, this.yellowCol1, null, this);
-    this.physics.add.collider(this.ball, this.yell3, this.yellowCol1, null, this);
+    this.physics.add.collider(this.ball, this.green1);
+    this.physics.add.collider(this.ball, this.green2);
+    this.physics.add.collider(this.ball, this.yell1);
+    this.physics.add.collider(this.ball, this.yell2);
+    this.physics.add.collider(this.ball, this.yell3);
 
     this.ball.body.velocity.setTo(-200, -200);
-    /*
+    
     this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.key_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-    */
   }
-  /*
-  greenCol1  = function (ball, obstacle) {
-    // Obstacle Green1
-    var green1x = 0;
-    var green1y = 0;
-    if (ball.x < obstacle.x) {
-      green1x = obstacle.x - ball.x;
-      ball.setVelocityX(-1 * green1x);
-    }
-    else if (ball.x > obstacle.x) {
-      green1x = ball.x - obstacle.x;
-      ball.setVelocityX(1 * green1x);
-    }
-    else {
-      ball.setVelocityX(2 + Math.random() * 8);  
-    }
-    if (ball.y < obstacle.y) {
-      green1y = obstacle.y - ball.y;
-      ball.setVelocityY(-1 * green1y);
-    }
-    else if (ball.y > obstacle.y) {
-      green1y = ball.y - obstacle.y;
-      ball.setVelocityY(1 * green1y);
-    }
-    else {
-      ball.setVelocityY(2 + Math.random() * 8);
-    }
-  }
-  greenCol2 = function (ball, obstacle) {
-    // Obstacle Green2
-    var green2x = 0;
-    var green2y = 0;
-    if (ball.x < obstacle.x) {
-      green2x = obstacle.x - ball.x;
-      ball.setVelocityX(-1 * green2x);
-    }
-    else if (ball.x > obstacle.x) {
-      green2x = ball.x - obstacle.x;
-      ball.setVelocityX(1 * green2x);
-    }
-    else {
-      ball.setVelocityX(2 + Math.random() * 8);
-    }
-    if (ball.y < obstacle.y) {
-      green2y = obstacle.y - ball.y;
-      ball.setVelocityY(-1 * green2y);
-    }
-    else if (ball.y > obstacle.y) {
-      green2y = ball.y - obstacle.y;
-      ball.setVelocityY(1 * green2y);
-    }
-    else {
-      ball.setVelocityY(2 + Math.random() * 8);
-    }
-  }*/
   
   update() {
     this.green1.x += 10 * this.dir1;
@@ -115,7 +57,7 @@ class level1 extends Phaser.Scene {
     this.yell1.angle += 5;
     this.yell2.angle += 5;
     this.yell3.angle += 5;
-    /*
+    
     if (this.key_W.isDown) {
       this.ball.y -= 4;
     }
@@ -127,7 +69,7 @@ class level1 extends Phaser.Scene {
     }
     if (this.key_D.isDown) {
       this.ball.x += 4;
-    }*/
+    }
   }
 
   render() {
