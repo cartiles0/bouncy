@@ -3,10 +3,9 @@ var config = {
   width: 600,
   height: 800,
   physics: {
-    default:'arcade',
-    arcade: {
-      gravity: {y : 0},
-      debug: false
+    default:'matter',
+    matter: {
+      debug: true
     }
   },
   scene: [level1],
