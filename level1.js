@@ -13,8 +13,6 @@ class level1 extends Phaser.Scene {
   create() {
     this.matter.world.setBounds(0, 0, game.config.width, game.config.height);
 
-      
-
     this.dir1 = 1;
     this.dir2 = -1;
     this.board = this.add.sprite(300, 400, 'board');
@@ -25,7 +23,7 @@ class level1 extends Phaser.Scene {
     var gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xffdd00, alpha: 0.5 } });
     var line = new Phaser.Geom.Line();
     var angle = 0;
-
+    console.log(ball);
     //ball.disableBody(true, true);
 
     this.input.on('pointermove', function (pointer) {
@@ -35,8 +33,9 @@ class level1 extends Phaser.Scene {
     }, this);
 
     this.input.on('pointerup', function () {
+      console.log("hola");
       ball.enableBody(true, cannon.x, cannon.y, true, true);
-      this.physics.velocityFromRotation(angle, 600, ball.body.velocity);
+      this.matter.velocityFromRotation(angle, 600, ball.body.velocity);
     }, this);
 
     // Green Obstacles
@@ -47,7 +46,6 @@ class level1 extends Phaser.Scene {
     this.yell1 = this.matter.add.sprite(100, 550, 'obs2', null, { isStatic: true });
     this.yell2 = this.matter.add.sprite(300, 550, 'obs2', null, { isStatic: true });
     this.yell3 = this.matter.add.sprite(500, 550, 'obs2', null, { isStatic: true });
-    //this.yell1.angularVelocity = 100;
 
     //this.ball = this.matter.add.sprite(300, 750, 'ball').setCircle(25);
     //this.ball.setCollideWorldBounds(true).setBounce(1);
