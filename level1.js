@@ -28,7 +28,8 @@ class level1 extends Phaser.Scene {
     this.yell1 = this.matter.add.sprite(100, 550, 'obs2', null, { isStatic: true });
     this.yell2 = this.matter.add.sprite(300, 550, 'obs2', null, { isStatic: true });
     this.yell3 = this.matter.add.sprite(500, 550, 'obs2', null, { isStatic: true });
-    
+    //this.yell1.angularVelocity = 100;
+
     this.ball = this.matter.add.sprite(300, 750, 'ball');
     this.ball.setCollideWorldBounds(true).setBounce(1);
     //this.ball.body.setCircle(25);
@@ -45,7 +46,6 @@ class level1 extends Phaser.Scene {
     this.ball.body.velocity.setTo(-200, -200);
 
     //Key Controls
-    
     this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.key_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.key_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -105,7 +105,7 @@ class level1 extends Phaser.Scene {
     if (this.green2.x <= 130) { this.dir2 *= -1 }
     if (this.green2.x >= 475) { this.dir2 *= -1 }
     
-    this.yell1.angle += 5;
+    this.yell1.angularVelocity = 100;
     this.yell2.angle += 5;
     this.yell3.angle += 5;
     
