@@ -14,23 +14,20 @@ class level1 extends Phaser.Scene {
   create() {
     this.matter.world.setBounds(0, -200, game.config.width, game.config.height + 200);
 
+      
+
     this.dir1 = 1;
     this.dir2 = -1;
     this.board = this.add.sprite(300, 400, 'board');
 
     // Green Obstacles
-    this.green1 = this.matter.add.sprite(130, 190, 'obs1');
-    
-    this.green2 = this.matter.add.sprite(475, 340, 'obs1');
-    this.green2.setImmovable();
+    this.green1 = this.matter.add.sprite(130, 190, 'obs1', null, { isStatic: true });
+    this.green2 = this.matter.add.sprite(475, 340, 'obs1', null, { isStatic: true });
 
     // Yellow Obstacles
-    this.yell1 = this.matter.add.sprite(100, 550, 'obs2');
-    this.yell1.setImmovable();
-    this.yell2 = this.matter.add.sprite(300, 550, 'obs2');
-    this.yell2.setImmovable();
-    this.yell3 = this.matter.add.sprite(500, 550, 'obs2');
-    this.yell3.setImmovable();
+    this.yell1 = this.matter.add.sprite(100, 550, 'obs2', null, { isStatic: true });
+    this.yell2 = this.matter.add.sprite(300, 550, 'obs2', null, { isStatic: true });
+    this.yell3 = this.matter.add.sprite(500, 550, 'obs2', null, { isStatic: true });
     
     this.ball = this.matter.add.sprite(300, 750, 'ball');
     this.ball.setCollideWorldBounds(true).setBounce(1);
