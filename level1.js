@@ -16,21 +16,42 @@ class level1 extends Phaser.Scene {
     this.dir2 = -1;
     this.board = this.add.sprite(300, 400, 'board');
 
+    // Bullet
+    var cannon = this.physics.add.sprite(300, 750, 'ball');
+    var bullet = this.physics.add.sprite(cannon.x, cannon.y, 'ball').setScale(.5);
+    
+    var gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xffdd00, alpha: 0.5 } });
+    var line = new Phaser.Geom.Line();
+    var angle = 0;
+
+    bullet.disableBody(true, true);
+
+    this.input.on('pointermove', function (pointer) {
+      angle = Phaser.Math.Angle.BetweenPoints(cannon, pointer);
+      Phaser.Geom.Line.SetToAngle(line, cannon.x, cannon.y, angle, 128);
+      gfx.clear().strokeLineShape(line);
+    }, this);
+
+    this.input.on('pointerup', function () {
+      bullet.enableBody(true, cannon.x, cannon.y, true, true);
+      this.physics.velocityFromRotation(angle, 600, bullet.body.velocity);
+    }, this);
+
     // Green Obstacle
     this.green1 = this.physics.add.sprite(130, 190, 'obs1');
-    this.green1.setImmovable().body.setAllowGravity(false);
+    this.green1.setImmovable(true).body.setAllowGravity(false);
     this.green2 = this.physics.add.sprite(475, 340, 'obs1');
-    this.green2.setImmovable().body.setAllowGravity(false);
+    this.green2.setImmovable(true).body.setAllowGravity(false);
 
     // Yellow Obstacle
-    this.yell1 = this.physics.add.sprite(100, 550, 'obs2');
-    this.yell1.setImmovable().body.setAllowGravity(false);
-    this.yell2 = this.physics.add.sprite(300, 550, 'obs2');
-    this.yell2.setImmovable().body.setAllowGravity(false);
-    this.yell3 = this.physics.add.sprite(500, 550, 'obs2');
-    this.yell3.setImmovable().body.setAllowGravity(false);
+    this.yell1 = this.physics.add.sprite(100, 550, 'obs2').setScale(.5);
+    //this.yell1.setImmovable(true).body.setAllowGravity(false);
+    this.yell2 = this.physics.add.sprite(300, 550, 'obs2').setScale(.5);
+    this.yell2.setImmovable(true).body.setAllowGravity(false);
+    this.yell3 = this.physics.add.sprite(500, 550, 'obs2').setScale(.5);
+    this.yell3.setImmovable(true).body.setAllowGravity(false);
     
-    // Ball
+    // Ball 
     this.ball = this.physics.add.sprite(300, 750, 'ball');
     this.ball.setCollideWorldBounds(true).setBounce(1);
     this.ball.body.setCircle(25);
@@ -59,9 +80,9 @@ class level1 extends Phaser.Scene {
     if (this.green2.x <= 130) { this.dir2 *= -1 }
     if (this.green2.x >= 475) { this.dir2 *= -1 }
     
-    this.yell1.angle += 5;
-    this.yell2.angle += 5;
-    this.yell3.angle += 5;
+    this.yell1.angle += 2;
+    this.yell2.angle += 2;
+    this.yell3.angle += 2;
     
     if (this.key_W.isDown) {
       this.ball.y -= 4;
@@ -75,6 +96,11 @@ class level1 extends Phaser.Scene {
     if (this.key_D.isDown) {
       this.ball.x += 4;
     }
+
+    // Shooting ball
+    
+
+
   }
 
   render() {
