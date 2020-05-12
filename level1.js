@@ -8,17 +8,36 @@ class level1 extends Phaser.Scene {
     this.load.image('obs1', 'assets/obs1.png');
     this.load.image('obs2', 'assets/obs2.png');
     this.load.image('ball', 'assets/ball.png');
-    this.load.image('test', 'assets/platform.png')
   }
 
   create() {
-    this.matter.world.setBounds(0, -200, game.config.width, game.config.height + 200);
+    this.matter.world.setBounds(0, 0, game.config.width, game.config.height);
 
       
 
     this.dir1 = 1;
     this.dir2 = -1;
     this.board = this.add.sprite(300, 400, 'board');
+    
+    // Shooting Ball
+    var cannon = this.add.image(300, 750, 'ball');
+    var ball = this.matter.add.sprite(cannon.x, cannon.y, 'ball').setScale(.5);
+    var gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xffdd00, alpha: 0.5 } });
+    var line = new Phaser.Geom.Line();
+    var angle = 0;
+
+    //ball.disableBody(true, true);
+
+    this.input.on('pointermove', function (pointer) {
+      angle = Phaser.Math.Angle.BetweenPoints(cannon, pointer);
+      Phaser.Geom.Line.SetToAngle(line, cannon.x, cannon.y, angle, 128);
+      gfx.clear().strokeLineShape(line);
+    }, this);
+
+    this.input.on('pointerup', function () {
+      ball.enableBody(true, cannon.x, cannon.y, true, true);
+      this.physics.velocityFromRotation(angle, 600, ball.body.velocity);
+    }, this);
 
     // Green Obstacles
     this.green1 = this.matter.add.sprite(130, 190, 'obs1', null, { isStatic: true });
@@ -30,9 +49,8 @@ class level1 extends Phaser.Scene {
     this.yell3 = this.matter.add.sprite(500, 550, 'obs2', null, { isStatic: true });
     //this.yell1.angularVelocity = 100;
 
-    this.ball = this.matter.add.sprite(300, 750, 'ball');
+    //this.ball = this.matter.add.sprite(300, 750, 'ball').setCircle(25);
     //this.ball.setCollideWorldBounds(true).setBounce(1);
-    //this.ball.body.setCircle(25);
 
     // Colliders
     /*
