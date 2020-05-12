@@ -18,23 +18,23 @@ class level1 extends Phaser.Scene {
 
     // Green Obstacle
     this.green1 = this.physics.add.sprite(130, 190, 'obs1');
-    this.green1.setImmovable();
+    this.green1.setImmovable().body.setAllowGravity(false);
     this.green2 = this.physics.add.sprite(475, 340, 'obs1');
-    this.green2.setImmovable();
+    this.green2.setImmovable().body.setAllowGravity(false);
 
     // Yellow Obstacle
     this.yell1 = this.physics.add.sprite(100, 550, 'obs2');
-    this.yell1.setImmovable();
+    this.yell1.setImmovable().body.setAllowGravity(false);
     this.yell2 = this.physics.add.sprite(300, 550, 'obs2');
-    this.yell2.setImmovable();
+    this.yell2.setImmovable().body.setAllowGravity(false);
     this.yell3 = this.physics.add.sprite(500, 550, 'obs2');
-    this.yell3.setImmovable();
+    this.yell3.setImmovable().body.setAllowGravity(false);
     
     // Ball
     this.ball = this.physics.add.sprite(300, 750, 'ball');
     this.ball.setCollideWorldBounds(true).setBounce(1);
     this.ball.body.setCircle(25);
-    this.ball.body.velocity.setTo(-200, -200);
+    //this.ball.body.velocity.setTo(-200, -200);
 
     // Colliders
     this.physics.add.collider(this.ball, this.green1);
