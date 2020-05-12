@@ -16,6 +16,26 @@ class level1 extends Phaser.Scene {
     this.dir2 = -1;
     this.board = this.add.sprite(300, 400, 'board');
 
+    // Cannon ball
+    var cannon = this.add.image(300, 750, 'ball');
+    var ball = this.physics.add.sprite(cannon.x, cannon.y, 'ball').setScale(.5);
+    var gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xffdd00, alpha: 0.5 } });
+    var line = new Phaser.Geom.Line();
+    var angle = 0;
+
+    ball.disableBody(true, true);
+
+    this.input.on('pointermove', function (pointer) {
+      angle = Phaser.Math.Angle.BetweenPoints(cannon, pointer);
+      Phaser.Geom.Line.SetToAngle(line, cannon.x, cannon.y, angle, 128);
+      gfx.clear().strokeLineShape(line);
+    }, this);
+
+    this.input.on('pointerup', function () {
+      ball.enableBody(true, cannon.x, cannon.y, true, true);
+      this.physics.velocityFromRotation(angle, 600, ball.body.velocity);
+    }, this);
+
     // Green Obstacle
     this.green1 = this.physics.add.sprite(130, 190, 'obs1');
     this.green1.setImmovable().body.setAllowGravity(false);
@@ -32,8 +52,8 @@ class level1 extends Phaser.Scene {
     
     // Ball
     this.ball = this.physics.add.sprite(300, 750, 'ball');
-    this.ball.setCollideWorldBounds(true).setBounce(1);
-    this.ball.body.setCircle(25);
+    //this.ball.setCollideWorldBounds(true).setBounce(1);
+    //this.ball.body.setCircle(25);
     //this.ball.body.velocity.setTo(-200, -200);
 
     // Colliders
