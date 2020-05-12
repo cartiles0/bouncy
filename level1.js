@@ -31,19 +31,17 @@ class level1 extends Phaser.Scene {
     //this.yell1.angularVelocity = 100;
 
     this.ball = this.matter.add.sprite(300, 750, 'ball');
-    this.ball.setCollideWorldBounds(true).setBounce(1);
+    //this.ball.setCollideWorldBounds(true).setBounce(1);
     //this.ball.body.setCircle(25);
 
     // Colliders
-    
+    /*
     this.physics.add.collider(this.ball, this.green1);
     this.physics.add.collider(this.ball, this.green2);
     this.physics.add.collider(this.ball, this.yell1);
     this.physics.add.collider(this.ball, this.yell2);
     this.physics.add.collider(this.ball, this.yell3);
-
-    // Start Speed for Ball
-    this.ball.body.velocity.setTo(-200, -200);
+    */
 
     //Key Controls
     this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -52,7 +50,7 @@ class level1 extends Phaser.Scene {
     this.key_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     
   }
-  
+  /*
   greenCol1  = function (ball, obstacle) {
     // Obstacle Green1
     var green1x = 0;
@@ -94,18 +92,18 @@ class level1 extends Phaser.Scene {
       green2y = ball.y - obstacle.y;
       ball.setVelocityY(1 * green2y);
     }
-  }
+  }*/
   
   update() {
-    this.green1.x += 1 * this.dir1;
+    this.green1.x += 5 * this.dir1;
     if (this.green1.x <= 130) { this.dir1 *= -1 } 
     if (this.green1.x >= 475) { this.dir1 *= -1 }
     
-    this.green2.x += 1 * this.dir2;
+    this.green2.x += 5 * this.dir2;
     if (this.green2.x <= 130) { this.dir2 *= -1 }
     if (this.green2.x >= 475) { this.dir2 *= -1 }
     
-    this.yell1.angularVelocity = 100;
+    this.yell1.angle += 5;
     this.yell2.angle += 5;
     this.yell3.angle += 5;
     
