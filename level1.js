@@ -16,17 +16,38 @@ class level1 extends Phaser.Scene {
     this.dir1 = 1;
     this.dir2 = -1;
     this.board = this.add.sprite(300, 400, 'board');
+    
+    // Shooting Ball
+    /*this.ball = this.matter.add.sprite(300, 750, 'ball').setScale(.5).setCircle(12.5);
+    this.cannon = this.add.image(300, 750, 'ball');
+    this.gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xffdd00, alpha: 0.5 } });
+    this.line = new Phaser.Geom.Line();
+    this.angle = 0;
+    console.log(this.ball);
+    //this.ball.disableBody(true, true);
+
+    this.input.on('pointermove', function (pointer) {
+      this.angle = Phaser.Math.Angle.BetweenPoints(this.cannon, pointer);
+      Phaser.Geom.Line.SetToAngle(this.line, this.cannon.x, this.cannon.y, this.angle, 128);
+      this.gfx.clear().strokeLineShape(this.line);
+    }, this);
+
+    this.input.on('pointerup', function () {
+      console.log("hola");
+      this.ball.enableBody(true, this.cannon.x, this.cannon.y, true, true);
+      this.matter.velocityFromRotation(this.angle, 600, this.ball.body.velocity);
+    }, this);*/
 
     // Green Obstacles
-    this.green1 = this.matter.add.sprite(130, 190, 'obs1', null, { isStatic: true });
-    this.green2 = this.matter.add.sprite(475, 340, 'obs1', null, { isStatic: true });
+    this.green1 = this.matter.add.sprite(150, 190, 'obs1', null, { isStatic: true }).setScale(.3);
+    this.green2 = this.matter.add.sprite(450, 340, 'obs1', null, { isStatic: true }).setScale(.3);
 
     // Yellow Obstacles
-    this.yell1 = this.matter.add.sprite(100, 550, 'obs2', null, { isStatic: true });
-    this.yell2 = this.matter.add.sprite(300, 550, 'obs2', null, { isStatic: true });
-    this.yell3 = this.matter.add.sprite(500, 550, 'obs2', null, { isStatic: true });
+    this.yell1 = this.matter.add.sprite(100, 550, 'obs2', null, { isStatic: true }).setScale(.3);
+    this.yell2 = this.matter.add.sprite(300, 550, 'obs2', null, { isStatic: true }).setScale(.3);
+    this.yell3 = this.matter.add.sprite(500, 550, 'obs2', null, { isStatic: true }).setScale(.3);
 
-    this.ball = this.matter.add.sprite(300, 750, 'ball').setCircle(25).setScale(.5);
+    this.ball = this.matter.add.sprite(300, 750, 'ball').setCircle(100).setScale(.2);
 
     //Key Controls
     this.key_W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -43,12 +64,12 @@ class level1 extends Phaser.Scene {
   
   update() {
     this.green1.x += 5 * this.dir1;
-    if (this.green1.x <= 130) { this.dir1 *= -1 } 
-    if (this.green1.x >= 475) { this.dir1 *= -1 }
+    if (this.green1.x <= 150) { this.dir1 *= -1 } 
+    if (this.green1.x >= 450) { this.dir1 *= -1 }
     
     this.green2.x += 5 * this.dir2;
-    if (this.green2.x <= 130) { this.dir2 *= -1 }
-    if (this.green2.x >= 475) { this.dir2 *= -1 }
+    if (this.green2.x <= 150) { this.dir2 *= -1 }
+    if (this.green2.x >= 450) { this.dir2 *= -1 }
     
     this.yell1.angle += 5;
     this.yell2.angle += 5;
