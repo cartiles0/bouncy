@@ -26,7 +26,6 @@ class level1 extends Phaser.Scene {
     graphics.closePath();
     graphics.fillPath();
 
-
     this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "SCORE ", 16);
 
     this.collect = function (obj1) {
@@ -103,7 +102,7 @@ class level1 extends Phaser.Scene {
 
     // Reset
     if (this.gameOn && this.ball.body.velocity.x == 0 && this.ball.body.velocity.y == 0) {
-      this.scene.reset("level1");
+      this.scene.restart();
     }
 
     // Goal

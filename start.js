@@ -13,6 +13,9 @@ class start extends Phaser.Scene {
 
   create () {
     this.board = this.add.sprite(300, 400, 'board').setScale(.24);
-    this.input.on('pointerdown', function () {this.scene.start('level1')}, this);
+    var keyObj = this.input.keyboard.addKey('ENTER');
+    keyObj.on('down', function () {
+      this.scene.start('level1');
+    }, this)
   }
 }
