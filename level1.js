@@ -9,9 +9,13 @@ class level1 extends Phaser.Scene {
     this.load.image('obs2', 'assets/obs2.png');
     this.load.image('ball', 'assets/ball.png');
     this.load.image('top', 'assets/top.png')
-  }
 
+    this.load.bitmapFont('pixelFont', 'assets/font/font.png', 'assets/font/font.xml');
+  }
   create() {
+    //Score
+    this.scoreLabel = this.add.bitmapText(10, 5, 'pixelFont', "SCORE ", 2);
+
     // Objects Directions
     this.dirG1 = 1;
     this.dirG2 = -1;
@@ -21,7 +25,8 @@ class level1 extends Phaser.Scene {
 
     // Background & Top
     this.board = this.add.sprite(300, 400, 'board').setScale(.24);
-    this.board = this.add.sprite(300, 45, 'top').setScale(.25);
+    this.top = this.add.sprite(300, 45, 'top').setScale(.25);
+    this.ballSpeed = 0;
 
     // Cannon & Ball
     this.cannon = this.add.image(300, 750, 'ball').setScale(.3);
@@ -44,14 +49,14 @@ class level1 extends Phaser.Scene {
       this.ball.enableBody(true, this.cannon.x, this.cannon.y, true, true);
       this.physics.velocityFromRotation(this.angle, 1200, this.ball.body.velocity);
     }, this);
-
-    // Green Obstacle
+    
+    // Pastry Obstacle
     this.pastry1 = this.physics.add.sprite(155, 185, 'obs1').setScale(.3);
     this.pastry1.setImmovable().body.setAllowGravity(false);
     this.pastry2 = this.physics.add.sprite(445, 335, 'obs1').setScale(.3);;
     this.pastry2.setImmovable().body.setAllowGravity(false);
 
-    // Yellow Obstacle
+    // Candy Obstacle
     this.candy1 = this.physics.add.sprite(100, 650, 'obs2').setScale(.3);;
     this.candy1.setImmovable().body.setAllowGravity(false);
     this.candy2 = this.physics.add.sprite(300, 525, 'obs2').setScale(.3);;
@@ -60,6 +65,7 @@ class level1 extends Phaser.Scene {
     this.candy3.setImmovable().body.setAllowGravity(false);
 
     // Colliders
+    this.physics.add.collider(this.ball, this.goal, this.newLevel, null, this);
     this.physics.add.collider(this.ball, this.pastry1);
     this.physics.add.collider(this.ball, this.pastry2);
     this.physics.add.collider(this.ball, this.candy1);
@@ -68,8 +74,16 @@ class level1 extends Phaser.Scene {
   }
   
   update() {
+  // Goal
+    if (this.ball.x > 210 && this.ball.x < 230 && this.ball.y < 100) {
+    this.scene.start("level2");
+  }
+
+    // Speed
     this.speedPastry = 5;
     this.speedCandy = 3; 
+
+    // Pastry Obstacles Movement
     this.pastry1.x += this.speedPastry * this.dirG1;
     if (this.pastry1.x <= 155) { this.dirG1 *= -1 } 
     if (this.pastry1.x >= 445) { this.dirG1 *= -1 }
@@ -78,6 +92,7 @@ class level1 extends Phaser.Scene {
     if (this.pastry2.x <= 155) { this.dirG2 *= -1 }
     if (this.pastry2.x >= 445) { this.dirG2 *= -1 }
 
+    // Candy Obstacles Movement
     this.candy1.y += this.speedCandy * this.dirY1;
     if (this.candy1.y <= 400) { this.dirY1 *= -1 }
     if (this.candy1.y >= 650) { this.dirY1 *= -1 }
@@ -92,11 +107,11 @@ class level1 extends Phaser.Scene {
   }
 
   render() {
-    this.debug.spriteInfo(this.ball, 2, 2);
-    this.debug.spriteInfo(this.pastry1, 32, 32);
-    this.debug.spriteInfo(this.pastry2, 32, 32);
-    this.debug.spriteInfo(this.candy1, 32, 32);
-    this.debug.spriteInfo(this.candy2, 32, 32);
-    this.debug.spriteInfo(this.candy3, 32, 32);
+    this.debug.spriteInfo(this.ball, 5, 5);
+    this.debug.spriteInfo(this.pastry1, 5, 5);
+    this.debug.spriteInfo(this.pastry2, 5, 5);
+    this.debug.spriteInfo(this.candy1, 5, 5);
+    this.debug.spriteInfo(this.candy2, 5, 5);
+    this.debug.spriteInfo(this.candy3, 5, 5);
   }
 }
