@@ -22,7 +22,6 @@ class level2 extends Phaser.Scene {
 
     // Background & Top
     this.board = this.add.sprite(300, 400, 'board').setScale(.24);
-    this.goal = this.add.sprite(220, 10, 'obs2').setScale(.25);
     this.top = this.add.sprite(300, 45, 'top').setScale(.25);
 
     // Cannon & Ball

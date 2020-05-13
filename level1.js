@@ -14,7 +14,26 @@ class level1 extends Phaser.Scene {
   }
   create() {
     //Score
-    this.scoreLabel = this.add.bitmapText(10, 5, 'pixelFont', "SCORE ", 2);
+    var graphics = this.add.graphics();
+    graphics.fillStyle(0x000000, 1);
+    graphics.beginPath();
+    graphics.moveTo(0, 0);
+    graphics.lineTo(config.width, 0);
+    graphics.lineTo(config.width, 20);
+    graphics.lineTo(0, 20);
+    graphics.lineTo(0, 0);
+    
+    graphics.closePath();
+    graphics.fillPath();
+
+
+    this.scoreLabel = this.add.bitmapText(10, 5, "pixelFont", "SCORE ", 16);
+
+    this.collect = function (obj1) {
+      obj1.destroy();
+      this.score += 10;
+      this.scoreLabel.text = "SCORE " + this.score;
+    }
 
     // Objects Directions
     this.dirG1 = 1;
@@ -22,6 +41,7 @@ class level1 extends Phaser.Scene {
     this.dirY1 = -1;
     this.dirY2 = -1;
     this.dirY3 = 1;
+    this.gameOn = false;
 
     // Background & Top
     this.board = this.add.sprite(300, 400, 'board').setScale(.24);
@@ -46,8 +66,11 @@ class level1 extends Phaser.Scene {
     }, this);
 
     this.input.on('pointerup', function () {
-      this.ball.enableBody(true, this.cannon.x, this.cannon.y, true, true);
-      this.physics.velocityFromRotation(this.angle, 1200, this.ball.body.velocity);
+      if ( !this.gameOn ) {
+        this.gameOn = true;
+        this.ball.enableBody(true, this.cannon.x, this.cannon.y, true, true);
+        this.physics.velocityFromRotation(this.angle, 1200, this.ball.body.velocity);
+      }
     }, this);
     
     // Pastry Obstacle
@@ -74,7 +97,16 @@ class level1 extends Phaser.Scene {
   }
   
   update() {
-  // Goal
+    // Drag
+    this.ball.body.drag.x += 5;
+    this.ball.body.drag.y += 5;
+
+    // Reset
+    if (this.gameOn && this.ball.body.velocity.x == 0 && this.ball.body.velocity.y == 0) {
+      this.scene.reset("level1");
+    }
+
+    // Goal
     if (this.ball.x > 210 && this.ball.x < 230 && this.ball.y < 100) {
     this.scene.start("level2");
   }
