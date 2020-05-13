@@ -8,6 +8,7 @@ class level1 extends Phaser.Scene {
     this.load.image('obs1', 'assets/obs1.png');
     this.load.image('obs2', 'assets/obs2.png');
     this.load.image('ball', 'assets/ball.png');
+    this.load.image('top', 'assets/top.png');
   }
 
   create() {
@@ -15,7 +16,8 @@ class level1 extends Phaser.Scene {
 
     this.dir1 = 1;
     this.dir2 = -1;
-    this.board = this.add.sprite(300, 400, 'board');
+    this.board = this.add.sprite(300, 400, 'board').setScale(.25);
+    this.top = this.add.sprite(300, 50, 'top').setScale(.25);
     
     // Shooting Ball
     /*this.ball = this.matter.add.sprite(300, 750, 'ball').setScale(.5).setCircle(12.5);
