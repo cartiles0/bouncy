@@ -1,8 +1,12 @@
 class level1 extends Phaser.Scene {
   constructor() {
-    super(
-      {key:"level1"});
+    super({key:"level1"});
   }
+
+  init(data) {
+    this.score = data.score;
+  }
+
 
   preload() {
     this.load.image('board', 'assets/board.png');
@@ -16,11 +20,6 @@ class level1 extends Phaser.Scene {
   }
   create() {
     // Objects Directions
-    this.dirG1 = 1;
-    this.dirG2 = -1;
-    this.dirY1 = -1;
-    this.dirY2 = -1;
-    this.dirY3 = 1;
     this.gameOn = false;
 
     // Background & Top
@@ -31,6 +30,7 @@ class level1 extends Phaser.Scene {
     // Cannon & Ball
     this.gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xfff99, alpha: 0.5 } });
     this.line = new Phaser.Geom.Line();
+    
     this.angle = 0;
     this.cannon = this.add.image(300, 750, 'ball').setScale(.3);
     
@@ -54,91 +54,68 @@ class level1 extends Phaser.Scene {
     }, this);
     
     // Pastry Obstacle
-    this.pastry1 = this.physics.add.sprite(190, 170, 'obs1Long');
-    this.pastry1.setImmovable().body.setAllowGravity(false);
-    this.pastry2 = this.physics.add.sprite(410, 320, 'obs1Long');
-    this.pastry2.setImmovable().body.setAllowGravity(false);
-    this.pastry3 = this.physics.add.sprite(190, 470, 'obs1Long');
-    this.pastry3.setImmovable().body.setAllowGravity(false);
-    this.pastry4 = this.physics.add.sprite(410, 620, 'obs1Long');
-    this.pastry4.setImmovable().body.setAllowGravity(false);
-
+    this.pastry1 = this.physics.add.sprite(190, 170, 'obs1Long').setImmovable();
+    this.pastry2 = this.physics.add.sprite(410, 320, 'obs1Long').setImmovable();
+    this.pastry3 = this.physics.add.sprite(190, 470, 'obs1Long').setImmovable();
+    this.pastry4 = this.physics.add.sprite(410, 620, 'obs1Long').setImmovable();
+    /*
+    this.pastry1b = this.physics.add.sprite(378, 170, 'ball').setImmovable().setScale(0.16);
+    this.pastry1b.setCircle(100);
+    this.pastry2b = this.physics.add.sprite(222, 320, 'ball').setImmovable().setScale(0.16);
+    this.pastry2b.setCircle(100);
+    this.pastry3b = this.physics.add.sprite(378, 470, 'ball').setImmovable().setScale(0.16);
+    this.pastry3b.setCircle(100);
+    this.pastry4b = this.physics.add.sprite(222, 620, 'ball').setImmovable().setScale(0.16);
+    this.pastry4b.setCircle(100);
+    */
     // Obstacle Colliders
     this.physics.add.collider(this.ball, this.pastry1);
     this.physics.add.collider(this.ball, this.pastry2);
     this.physics.add.collider(this.ball, this.pastry3);
     this.physics.add.collider(this.ball, this.pastry4);
-
+    /*
+    this.physics.add.collider(this.ball, this.pastry1b);
+    this.physics.add.collider(this.ball, this.pastry2b);
+    this.physics.add.collider(this.ball, this.pastry3b);
+    this.physics.add.collider(this.ball, this.pastry4b);
+    */
     // Prizes
-    this.prize1 = this.physics.add.sprite(315, 565, 'ball').setScale(.2);
-    this.prize1.setImmovable().body.setAllowGravity(false);
-    this.prize2 = this.physics.add.sprite(415, 565, 'ball').setScale(.2);
-    this.prize2.setImmovable().body.setAllowGravity(false);
-    this.prize3 = this.physics.add.sprite(515, 565, 'ball').setScale(.2);
-    this.prize3.setImmovable().body.setAllowGravity(false);
-    this.prize4 = this.physics.add.sprite(85, 415, 'ball').setScale(.2);
-    this.prize4.setImmovable().body.setAllowGravity(false);
-    this.prize5 = this.physics.add.sprite(185, 415, 'ball').setScale(.2);
-    this.prize5.setImmovable().body.setAllowGravity(false);
-    this.prize6 = this.physics.add.sprite(285, 415, 'ball').setScale(.2);
-    this.prize6.setImmovable().body.setAllowGravity(false);
-    this.prize7 = this.physics.add.sprite(315, 265, 'ball').setScale(.2);
-    this.prize7.setImmovable().body.setAllowGravity(false);
-    this.prize8 = this.physics.add.sprite(415, 265, 'ball').setScale(.2);
-    this.prize8.setImmovable().body.setAllowGravity(false);
-    this.prize9 = this.physics.add.sprite(515, 265, 'ball').setScale(.2);
-    this.prize9.setImmovable().body.setAllowGravity(false);
-    this.prize10 = this.physics.add.sprite(85, 115, 'ball').setScale(.2);
-    this.prize10.setImmovable().body.setAllowGravity(false);
-    this.prize11 = this.physics.add.sprite(185, 115, 'ball').setScale(.2);
-    this.prize11.setImmovable().body.setAllowGravity(false);
-    this.prize12 = this.physics.add.sprite(285, 115, 'ball').setScale(.2);
-    this.prize12.setImmovable().body.setAllowGravity(false);
+    this.PRIZES_COORD = [
+      { x: 315, y: 565 },
+      { x: 415, y: 565 },
+      { x: 515, y: 565 },
+      { x: 85, y: 415 },
+      { x: 185, y: 415 },
+      { x: 285, y: 415 },
+      { x: 315, y: 265 },
+      { x: 415, y: 265 },
+      { x: 515, y: 265 },
+      { x: 85, y: 115 },
+      { x: 185, y: 115 },
+      { x: 285, y: 115 }
+    ]
+    this.prizes = []
+    this.PRIZES_COORD.forEach(prize => {
+      let newPrize = this.physics.add.sprite(prize.x, prize.y, 'ball').setScale(.2).setImmovable();
+      this.prizes.push(newPrize);
+      //Prizes Collider 
+      this.physics.add.overlap(this.ball, newPrize, prizeCollect, null, this);
+    })
 
-    //Prizes Collider 
-    this.physics.add.overlap(this.ball, this.prize1, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize2, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize3, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize4, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize5, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize6, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize7, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize8, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize9, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize10, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize11, prizeCollect, null, this);
-    this.physics.add.overlap(this.ball, this.prize12, prizeCollect, null, this);
-    
     function prizeCollect (ball, prize) {
       prize.disableBody(true, true);
-      score += 10;
-      scoreText.setText('SCORE: ' + score)
+      this.scoreLocal += 10;
+      this.scoreText.setText('SCORE: ' + this.scoreLocal);
+      this.scoreGlobal = this.scoreLocal;
     }
 
-    //Score
-    var score = 0;
-    var scoreText = this.add.text(30, 750, 'SCORE 0', { fontSize: '32px', fill: '#000' });
-    /*var graphics = this.add.graphics();
-    graphics.fillStyle(0x000000, 1);
-    graphics.beginPath();
-    graphics.moveTo(0, 0);
-    graphics.lineTo(config.width, 0);
-    graphics.lineTo(config.width, 20);
-    graphics.lineTo(0, 20);
-    graphics.lineTo(0, 0);
-
-    graphics.closePath();
-    graphics.fillPath();*/
-
-
-    //this.scoreLabel = this.add.bitmapText(30, 755, "pixelFont", "SCORE ", 36);
-    //this.levelLabel = this.add.bitmapText(450, 755, "pixelFont", "LEVEL ", 36);
-
-    this.collect = function (obj1) {
-      obj1.destroy();
-      this.score += 10;
-      this.scoreLabel.text = "SCORE " + this.score;
-    }
+    //Score & Level
+    this.sceneStart = this.scene.get('start').data.get('score');
+    this.scoreLocal = 0;
+    this.data.set('score', this.scoreGlobal);
+    this.score = 'SCORE: ' + this.sceneStart;
+    this.levelText = this.add.text(420, 750, 'LEVEL: 1', { fontSize: '32px', fill: '#000' });
+    this.scoreText = this.add.text(30, 750, this.score, { fontSize: '32px', fill: '#000' });
 
     // Game Restart Space Key
     this.keySpace = this.input.keyboard.addKey('SPACE');
@@ -159,7 +136,7 @@ class level1 extends Phaser.Scene {
 
     // Goal
     if (this.ball.x > 210 && this.ball.x < 230 && this.ball.y < 100) {
-    this.scene.start("level1done");
+      this.scene.start("level1done");
     }
   }
 
