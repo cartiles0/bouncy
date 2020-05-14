@@ -15,9 +15,6 @@ class level1 extends Phaser.Scene {
     this.load.bitmapFont('pixelFont', 'assets/font/font.png', 'assets/font/font.xml');
   }
   create() {
-    //Score
-    
-
     // Objects Directions
     this.dirG1 = 1;
     this.dirG2 = -1;
@@ -73,29 +70,29 @@ class level1 extends Phaser.Scene {
     this.physics.add.collider(this.ball, this.pastry4);
 
     // Prizes
-    this.prize1 = this.physics.add.sprite(300, 565, 'ball').setScale(.2);
+    this.prize1 = this.physics.add.sprite(315, 565, 'ball').setScale(.2);
     this.prize1.setImmovable().body.setAllowGravity(false);
-    this.prize2 = this.physics.add.sprite(400, 565, 'ball').setScale(.2);
+    this.prize2 = this.physics.add.sprite(415, 565, 'ball').setScale(.2);
     this.prize2.setImmovable().body.setAllowGravity(false);
-    this.prize3 = this.physics.add.sprite(500, 565, 'ball').setScale(.2);
+    this.prize3 = this.physics.add.sprite(515, 565, 'ball').setScale(.2);
     this.prize3.setImmovable().body.setAllowGravity(false);
-    this.prize4 = this.physics.add.sprite(100, 415, 'ball').setScale(.2);
+    this.prize4 = this.physics.add.sprite(85, 415, 'ball').setScale(.2);
     this.prize4.setImmovable().body.setAllowGravity(false);
-    this.prize5 = this.physics.add.sprite(200, 415, 'ball').setScale(.2);
+    this.prize5 = this.physics.add.sprite(185, 415, 'ball').setScale(.2);
     this.prize5.setImmovable().body.setAllowGravity(false);
-    this.prize6 = this.physics.add.sprite(300, 415, 'ball').setScale(.2);
+    this.prize6 = this.physics.add.sprite(285, 415, 'ball').setScale(.2);
     this.prize6.setImmovable().body.setAllowGravity(false);
-    this.prize7 = this.physics.add.sprite(300, 265, 'ball').setScale(.2);
+    this.prize7 = this.physics.add.sprite(315, 265, 'ball').setScale(.2);
     this.prize7.setImmovable().body.setAllowGravity(false);
-    this.prize8 = this.physics.add.sprite(400, 265, 'ball').setScale(.2);
+    this.prize8 = this.physics.add.sprite(415, 265, 'ball').setScale(.2);
     this.prize8.setImmovable().body.setAllowGravity(false);
-    this.prize9 = this.physics.add.sprite(500, 265, 'ball').setScale(.2);
+    this.prize9 = this.physics.add.sprite(515, 265, 'ball').setScale(.2);
     this.prize9.setImmovable().body.setAllowGravity(false);
-    this.prize10 = this.physics.add.sprite(100, 115, 'ball').setScale(.2);
+    this.prize10 = this.physics.add.sprite(85, 115, 'ball').setScale(.2);
     this.prize10.setImmovable().body.setAllowGravity(false);
-    this.prize11 = this.physics.add.sprite(200, 115, 'ball').setScale(.2);
+    this.prize11 = this.physics.add.sprite(185, 115, 'ball').setScale(.2);
     this.prize11.setImmovable().body.setAllowGravity(false);
-    this.prize12 = this.physics.add.sprite(300, 115, 'ball').setScale(.2);
+    this.prize12 = this.physics.add.sprite(285, 115, 'ball').setScale(.2);
     this.prize12.setImmovable().body.setAllowGravity(false);
 
     //Prizes Collider 
@@ -114,6 +111,33 @@ class level1 extends Phaser.Scene {
     
     function prizeCollect (ball, prize) {
       prize.disableBody(true, true);
+      score += 10;
+      scoreText.setText('SCORE: ' + score)
+    }
+
+    //Score
+    var score = 0;
+    var scoreText = this.add.text(30, 750, 'SCORE 0', { fontSize: '32px', fill: '#000' });
+    /*var graphics = this.add.graphics();
+    graphics.fillStyle(0x000000, 1);
+    graphics.beginPath();
+    graphics.moveTo(0, 0);
+    graphics.lineTo(config.width, 0);
+    graphics.lineTo(config.width, 20);
+    graphics.lineTo(0, 20);
+    graphics.lineTo(0, 0);
+
+    graphics.closePath();
+    graphics.fillPath();*/
+
+
+    //this.scoreLabel = this.add.bitmapText(30, 755, "pixelFont", "SCORE ", 36);
+    //this.levelLabel = this.add.bitmapText(450, 755, "pixelFont", "LEVEL ", 36);
+
+    this.collect = function (obj1) {
+      obj1.destroy();
+      this.score += 10;
+      this.scoreLabel.text = "SCORE " + this.score;
     }
 
     // Game Restart Space Key

@@ -75,6 +75,67 @@ class level2 extends Phaser.Scene {
     this.physics.add.collider(this.ball, this.candy2);
     this.physics.add.collider(this.ball, this.candy3);
 
+    // Prizes
+    this.prize1 = this.physics.add.sprite(80, 135, 'ball').setScale(.2);
+    this.prize1.setImmovable().body.setAllowGravity(false);
+    this.prize2 = this.physics.add.sprite(230, 135, 'ball').setScale(.2);
+    this.prize2.setImmovable().body.setAllowGravity(false);
+    this.prize3 = this.physics.add.sprite(370, 285, 'ball').setScale(.2);
+    this.prize3.setImmovable().body.setAllowGravity(false);
+    this.prize4 = this.physics.add.sprite(520, 285, 'ball').setScale(.2);
+    this.prize4.setImmovable().body.setAllowGravity(false);
+    this.prize5 = this.physics.add.sprite(100, 615, 'ball').setScale(.2);
+    this.prize5.setImmovable().body.setAllowGravity(false);
+    this.prize6 = this.physics.add.sprite(300, 490, 'ball').setScale(.2);
+    this.prize6.setImmovable().body.setAllowGravity(false);
+    this.prize7 = this.physics.add.sprite(500, 365, 'ball').setScale(.2);
+    this.prize7.setImmovable().body.setAllowGravity(false);
+
+    //Prizes Collider 
+    this.physics.add.overlap(this.ball, this.prize1, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize2, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize3, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize4, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize5, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize6, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize7, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize8, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize9, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize10, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize11, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize12, prizeCollect, null, this);
+
+    function prizeCollect(ball, prize) {
+      prize.disableBody(true, true);
+      score += 10;
+      scoreText.setText('SCORE: ' + score)
+    }
+
+    //Score
+    var score = 0;
+    var scoreText = this.add.text(30, 750, 'SCORE 0', { fontSize: '32px', fill: '#000' });
+    /*var graphics = this.add.graphics();
+    graphics.fillStyle(0x000000, 1);
+    graphics.beginPath();
+    graphics.moveTo(0, 0);
+    graphics.lineTo(config.width, 0);
+    graphics.lineTo(config.width, 20);
+    graphics.lineTo(0, 20);
+    graphics.lineTo(0, 0);
+
+    graphics.closePath();
+    graphics.fillPath();*/
+
+
+    //this.scoreLabel = this.add.bitmapText(30, 755, "pixelFont", "SCORE ", 36);
+    //this.levelLabel = this.add.bitmapText(450, 755, "pixelFont", "LEVEL ", 36);
+
+    this.collect = function (obj1) {
+      obj1.destroy();
+      this.score += 10;
+      this.scoreLabel.text = "SCORE " + this.score;
+    }
+
     // Game Restart Space Key
     this.keySpace = this.input.keyboard.addKey('SPACE');
     this.keySpace.on('down', function () {
@@ -83,9 +144,6 @@ class level2 extends Phaser.Scene {
   }
 
   update() {
-    // Pastry Collisions
-
-
     // Drag
     this.ball.body.drag.x += .1;
     this.ball.body.drag.y += .1;
@@ -104,25 +162,32 @@ class level2 extends Phaser.Scene {
     this.speedPastry = 5;
     this.speedCandy = 3;
 
-    // Pastry Obstacles Movement
+    // Pastry Obstacles & Prize Movement
     this.pastry1.x += this.speedPastry * this.dirG1;
+    this.prize1.x += this.speedPastry * this.dirG1;
+    this.prize2.x += this.speedPastry * this.dirG1;
     if (this.pastry1.x <= 155) { this.dirG1 *= -1 }
     if (this.pastry1.x >= 445) { this.dirG1 *= -1 }
 
     this.pastry2.x += this.speedPastry * this.dirG2;
+    this.prize3.x += this.speedPastry * this.dirG2;
+    this.prize4.x += this.speedPastry * this.dirG2;
     if (this.pastry2.x <= 155) { this.dirG2 *= -1 }
     if (this.pastry2.x >= 445) { this.dirG2 *= -1 }
 
-    // Candy Obstacles Movement
+    // Candy Obstacles & Prize Movement
     this.candy1.y += this.speedCandy * this.dirY1;
+    this.prize5.y += this.speedCandy * this.dirY1;
     if (this.candy1.y <= 400) { this.dirY1 *= -1 }
     if (this.candy1.y >= 650) { this.dirY1 *= -1 }
 
     this.candy2.y += this.speedCandy * this.dirY2;
+    this.prize6.y += this.speedCandy * this.dirY2;
     if (this.candy2.y <= 400) { this.dirY2 *= -1 }
     if (this.candy2.y >= 650) { this.dirY2 *= -1 }
 
     this.candy3.y += this.speedCandy * this.dirY3;
+    this.prize7.y += this.speedCandy * this.dirY3;
     if (this.candy3.y <= 400) { this.dirY3 *= -1 }
     if (this.candy3.y >= 650) { this.dirY3 *= -1 }
   }
