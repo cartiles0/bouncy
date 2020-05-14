@@ -9,14 +9,12 @@ class level1 extends Phaser.Scene {
     this.load.image('obs1', 'assets/obs1.png');
     this.load.image('obs2', 'assets/obs2.png');
     this.load.image('ball', 'assets/ball.png');
-    this.load.image('top', 'assets/top.png')
+    this.load.image('top', 'assets/top.png');
+    this.load.image('obs1Long', 'assets/obs1Long.png');
 
     this.load.bitmapFont('pixelFont', 'assets/font/font.png', 'assets/font/font.xml');
   }
   create() {
-    //Score
-    
-
     // Objects Directions
     this.dirG1 = 1;
     this.dirG2 = -1;
@@ -31,15 +29,15 @@ class level1 extends Phaser.Scene {
     this.ballSpeed = 0;
 
     // Cannon & Ball
+    this.gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xfff99, alpha: 0.5 } });
+    this.line = new Phaser.Geom.Line();
+    this.angle = 0;
     this.cannon = this.add.image(300, 750, 'ball').setScale(.3);
+    
     this.ball = this.physics.add.sprite(this.cannon.x, this.cannon.y, 'ball');
     this.ball.setCollideWorldBounds(true).setScale(.2).setBounce(1);
     this.ball.disableBody(true, true);
     this.ball.body.setCircle(100);
-
-    this.gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 5, color: 0xdddf99, alpha: 0.5 } });
-    this.line = new Phaser.Geom.Line();
-    this.angle = 0;
 
     this.input.on('pointermove', function (pointer) {
       this.angle = Phaser.Math.Angle.BetweenPoints(this.cannon, pointer);
@@ -56,26 +54,97 @@ class level1 extends Phaser.Scene {
     }, this);
     
     // Pastry Obstacle
-    this.pastry1 = this.physics.add.sprite(155, 185, 'obs1').setScale(.3);
+    this.pastry1 = this.physics.add.sprite(190, 170, 'obs1Long');
     this.pastry1.setImmovable().body.setAllowGravity(false);
-    this.pastry2 = this.physics.add.sprite(445, 335, 'obs1').setScale(.3);;
+    this.pastry2 = this.physics.add.sprite(410, 320, 'obs1Long');
     this.pastry2.setImmovable().body.setAllowGravity(false);
+    this.pastry3 = this.physics.add.sprite(190, 470, 'obs1Long');
+    this.pastry3.setImmovable().body.setAllowGravity(false);
+    this.pastry4 = this.physics.add.sprite(410, 620, 'obs1Long');
+    this.pastry4.setImmovable().body.setAllowGravity(false);
 
-    // Candy Obstacle
-    this.candy1 = this.physics.add.sprite(100, 650, 'obs2').setScale(.3);;
-    this.candy1.setImmovable().body.setAllowGravity(false);
-    this.candy2 = this.physics.add.sprite(300, 525, 'obs2').setScale(.3);;
-    this.candy2.setImmovable().body.setAllowGravity(false);
-    this.candy3 = this.physics.add.sprite(500, 400, 'obs2').setScale(.3);;
-    this.candy3.setImmovable().body.setAllowGravity(false);
-
-    // Colliders
-    this.physics.add.collider(this.ball, this.goal, this.newLevel, null, this);
+    // Obstacle Colliders
     this.physics.add.collider(this.ball, this.pastry1);
     this.physics.add.collider(this.ball, this.pastry2);
-    this.physics.add.collider(this.ball, this.candy1);
-    this.physics.add.collider(this.ball, this.candy2);
-    this.physics.add.collider(this.ball, this.candy3);
+    this.physics.add.collider(this.ball, this.pastry3);
+    this.physics.add.collider(this.ball, this.pastry4);
+
+    // Prizes
+    this.prize1 = this.physics.add.sprite(315, 565, 'ball').setScale(.2);
+    this.prize1.setImmovable().body.setAllowGravity(false);
+    this.prize2 = this.physics.add.sprite(415, 565, 'ball').setScale(.2);
+    this.prize2.setImmovable().body.setAllowGravity(false);
+    this.prize3 = this.physics.add.sprite(515, 565, 'ball').setScale(.2);
+    this.prize3.setImmovable().body.setAllowGravity(false);
+    this.prize4 = this.physics.add.sprite(85, 415, 'ball').setScale(.2);
+    this.prize4.setImmovable().body.setAllowGravity(false);
+    this.prize5 = this.physics.add.sprite(185, 415, 'ball').setScale(.2);
+    this.prize5.setImmovable().body.setAllowGravity(false);
+    this.prize6 = this.physics.add.sprite(285, 415, 'ball').setScale(.2);
+    this.prize6.setImmovable().body.setAllowGravity(false);
+    this.prize7 = this.physics.add.sprite(315, 265, 'ball').setScale(.2);
+    this.prize7.setImmovable().body.setAllowGravity(false);
+    this.prize8 = this.physics.add.sprite(415, 265, 'ball').setScale(.2);
+    this.prize8.setImmovable().body.setAllowGravity(false);
+    this.prize9 = this.physics.add.sprite(515, 265, 'ball').setScale(.2);
+    this.prize9.setImmovable().body.setAllowGravity(false);
+    this.prize10 = this.physics.add.sprite(85, 115, 'ball').setScale(.2);
+    this.prize10.setImmovable().body.setAllowGravity(false);
+    this.prize11 = this.physics.add.sprite(185, 115, 'ball').setScale(.2);
+    this.prize11.setImmovable().body.setAllowGravity(false);
+    this.prize12 = this.physics.add.sprite(285, 115, 'ball').setScale(.2);
+    this.prize12.setImmovable().body.setAllowGravity(false);
+
+    //Prizes Collider 
+    this.physics.add.overlap(this.ball, this.prize1, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize2, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize3, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize4, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize5, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize6, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize7, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize8, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize9, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize10, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize11, prizeCollect, null, this);
+    this.physics.add.overlap(this.ball, this.prize12, prizeCollect, null, this);
+    
+    function prizeCollect (ball, prize) {
+      prize.disableBody(true, true);
+      score += 10;
+      scoreText.setText('SCORE: ' + score)
+    }
+
+    //Score
+    var score = 0;
+    var scoreText = this.add.text(30, 750, 'SCORE 0', { fontSize: '32px', fill: '#000' });
+    /*var graphics = this.add.graphics();
+    graphics.fillStyle(0x000000, 1);
+    graphics.beginPath();
+    graphics.moveTo(0, 0);
+    graphics.lineTo(config.width, 0);
+    graphics.lineTo(config.width, 20);
+    graphics.lineTo(0, 20);
+    graphics.lineTo(0, 0);
+
+    graphics.closePath();
+    graphics.fillPath();*/
+
+
+    //this.scoreLabel = this.add.bitmapText(30, 755, "pixelFont", "SCORE ", 36);
+    //this.levelLabel = this.add.bitmapText(450, 755, "pixelFont", "LEVEL ", 36);
+
+    this.collect = function (obj1) {
+      obj1.destroy();
+      this.score += 10;
+      this.scoreLabel.text = "SCORE " + this.score;
+    }
+
+    // Game Restart Space Key
+    this.keySpace = this.input.keyboard.addKey('SPACE');
+    this.keySpace.on('down', function () {
+      this.scene.restart();
+    }, this);
   }
   
   update() {
@@ -83,41 +152,15 @@ class level1 extends Phaser.Scene {
     this.ball.body.drag.x += .1;
     this.ball.body.drag.y += .1;
 
-    // Reset
+    // Game Restart for Ball Stopped
     if (this.gameOn && this.ball.body.velocity.x == 0 && this.ball.body.velocity.y == 0) {
       this.scene.restart();
     }
 
     // Goal
     if (this.ball.x > 210 && this.ball.x < 230 && this.ball.y < 100) {
-    this.scene.start("level2");
-  }
-
-    // Speed
-    this.speedPastry = 5;
-    this.speedCandy = 3; 
-
-    // Pastry Obstacles Movement
-    this.pastry1.x += this.speedPastry * this.dirG1;
-    if (this.pastry1.x <= 155) { this.dirG1 *= -1 } 
-    if (this.pastry1.x >= 445) { this.dirG1 *= -1 }
-    
-    this.pastry2.x += this.speedPastry * this.dirG2;
-    if (this.pastry2.x <= 155) { this.dirG2 *= -1 }
-    if (this.pastry2.x >= 445) { this.dirG2 *= -1 }
-
-    // Candy Obstacles Movement
-    this.candy1.y += this.speedCandy * this.dirY1;
-    if (this.candy1.y <= 400) { this.dirY1 *= -1 }
-    if (this.candy1.y >= 650) { this.dirY1 *= -1 }
-
-    this.candy2.y += this.speedCandy * this.dirY2;
-    if (this.candy2.y <= 400) { this.dirY2 *= -1 }
-    if (this.candy2.y >= 650) { this.dirY2 *= -1 }
-
-    this.candy3.y += this.speedCandy * this.dirY3;
-    if (this.candy3.y <= 400) { this.dirY3 *= -1 }
-    if (this.candy3.y >= 650) { this.dirY3 *= -1 }
+    this.scene.start("level1done");
+    }
   }
 
   render() {
