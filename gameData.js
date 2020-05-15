@@ -2,12 +2,11 @@ class gameData extends Phaser.Scene {
 
   constructor() {
     super('gameData');
-
-    this.score = 0;
-    this.lives = 6;
   }
   create () {
+    this.score = 0;
     this.registry.set('score', this.score);
     this.registry.set('lives', this.lives);
+    this.scene.start('level1', { score: 100 });
   }
 }

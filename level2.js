@@ -3,6 +3,10 @@ class level2 extends Phaser.Scene {
     super({ key: "level2" });
   }
 
+  init(data) {
+    this.score = data.score;
+  }
+
   preload() {
     // Image Preload
     this.load.image('board', 'assets/board.png');
@@ -104,34 +108,29 @@ class level2 extends Phaser.Scene {
 
     function prizeCollect(ball, prize) {
       prize.disableBody(true, true);
-      this.scoreGlobal += 10;
-      this.scoreText.setText('SCORE: ' + this.scoreGlobal);
+      this.score += 10;
+      this.scoreText.setText('SCORE: ' + this.score);
     }
 
     //Score & Level
-    this.sceneStart = this.scene.get('level1').data.get('score');
-    this.scoreGlobal = this.sceneStart;
-    this.score = 'SCORE: ' + this.scoreGlobal;
     this.levelText = this.add.text(420, 750, 'LEVEL: 2', { fontSize: '32px', fill: '#000' });
-    this.scoreText = this.add.text(30, 750, this.score, { fontSize: '32px', fill: '#000' });
+    this.scoreText = this.add.text(30, 750, 'SCORE: ' + this.score, { fontSize: '32px', fill: '#000' });
 
     // Game Restart Space Key
     this.keySpace = this.input.keyboard.addKey('SPACE');
     this.keySpace.on('down', function () {
-      this.scoreGlobal -= 30;
-      this.scene.restart();
+      this.scene.restart({ score: this.score - 30 });
     }, this);
   }
 
   update() {
     // Drag
-    this.ball.body.drag.x += .1;
-    this.ball.body.drag.y += .1;
+    this.ball.body.drag.x += .2;
+    this.ball.body.drag.y += .2;
 
     // Game Restart for Ball Stopped
     if (this.gameOn && this.ball.body.velocity.x == 0 && this.ball.body.velocity.y == 0) {
-      this.scoreGlobal -= 30;
-      this.scene.restart();
+      this.scene.restart({ score: this.score - 30 });
     }
 
     // Goal

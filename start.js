@@ -3,6 +3,10 @@ class start extends Phaser.Scene {
     super({ key: "start" });
   }
 
+  init(data) {
+    this.score = data.score;
+  }
+
   preload () {
     this.load.image('board', 'assets/board.png');
     this.load.image('obs1', 'assets/obs1.png');
