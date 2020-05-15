@@ -16,10 +16,22 @@ class level2 extends Phaser.Scene {
     this.dirY3 = 1;
     this.gameOn = false;
 
-    // Background & Top
-    this.board = this.add.sprite(300, 400, 'board').setScale(.24);
-    this.top = this.add.sprite(300, 45, 'top').setScale(.25);
-    this.ballSpeed = 0;
+    // Background, Top & Bottom
+    this.background = this.add.sprite(300, 400, 'background');
+    this.bottom = this.physics.add.sprite(300, 760, 'bottom').setScale(.24);
+    this.bottom.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
+    this.TopL = this.physics.add.sprite(25, 0, 'TopOraL').setScale(.24);
+    this.TopL.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
+    this.TopPinkL = this.physics.add.sprite(125, 0, 'TopPinkL').setScale(.24);
+    this.TopPinkL.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
+    this.TopOraL = this.physics.add.sprite(225, 0, 'TopL').setScale(.24);
+    this.TopOraL.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
+    this.TopOraR = this.physics.add.sprite(375, 0, 'TopR').setScale(.24);
+    this.TopOraR.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
+    this.TopPinkR = this.physics.add.sprite(475, 0, 'TopPinkR').setScale(.24);
+    this.TopPinkR.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
+    this.TopR = this.physics.add.sprite(575, 0, 'TopOraR').setScale(.24);
+    this.TopR.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
 
     // Cannon & Ball
     this.gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xfff99, alpha: 0.5 } });
@@ -46,6 +58,15 @@ class level2 extends Phaser.Scene {
       }
     }, this);
 
+    // Top & Bottom Obstacle
+    this.physics.add.collider(this.ball, this.bottom);
+    this.physics.add.collider(this.ball, this.TopL);
+    this.physics.add.collider(this.ball, this.TopPinkL);
+    this.physics.add.collider(this.ball, this.TopOraL);
+    this.physics.add.collider(this.ball, this.TopR);
+    this.physics.add.collider(this.ball, this.TopPinkR);
+    this.physics.add.collider(this.ball, this.TopOraR);
+
     // Pastry Obstacle
     this.pastry1 = this.physics.add.sprite(155, 185, 'obs1').setScale(.3);
     this.pastry1.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
@@ -68,19 +89,19 @@ class level2 extends Phaser.Scene {
     this.physics.add.collider(this.ball, this.candy3);
 
     // Prizes
-    this.prize1 = this.physics.add.sprite(80, 135, 'ball').setScale(.2);
+    this.prize1 = this.physics.add.sprite(80, 135, 'PriceCoin').setScale(.2);
     this.prize1.setImmovable().body.setAllowGravity(false);
-    this.prize2 = this.physics.add.sprite(230, 135, 'ball').setScale(.2);
+    this.prize2 = this.physics.add.sprite(230, 135, 'PriceFresa').setScale(.2);
     this.prize2.setImmovable().body.setAllowGravity(false);
-    this.prize3 = this.physics.add.sprite(370, 285, 'ball').setScale(.2);
+    this.prize3 = this.physics.add.sprite(370, 285, 'PriceMenta').setScale(.2);
     this.prize3.setImmovable().body.setAllowGravity(false);
-    this.prize4 = this.physics.add.sprite(520, 285, 'ball').setScale(.2);
+    this.prize4 = this.physics.add.sprite(520, 285, 'PriceCoin').setScale(.2);
     this.prize4.setImmovable().body.setAllowGravity(false);
-    this.prize5 = this.physics.add.sprite(100, 615, 'ball').setScale(.2);
+    this.prize5 = this.physics.add.sprite(100, 615, 'PriceFresa').setScale(.2);
     this.prize5.setImmovable().body.setAllowGravity(false);
-    this.prize6 = this.physics.add.sprite(300, 490, 'ball').setScale(.2);
+    this.prize6 = this.physics.add.sprite(300, 490, 'PriceMenta').setScale(.2);
     this.prize6.setImmovable().body.setAllowGravity(false);
-    this.prize7 = this.physics.add.sprite(500, 365, 'ball').setScale(.2);
+    this.prize7 = this.physics.add.sprite(500, 365, 'PriceCoin').setScale(.2);
     this.prize7.setImmovable().body.setAllowGravity(false);
 
     //Prizes Collider 
@@ -104,8 +125,8 @@ class level2 extends Phaser.Scene {
     }
 
     //Score & Level
-    this.levelText = this.add.text(420, 750, 'LEVEL: 2', { fontSize: '32px', fill: '#000' });
-    this.scoreText = this.add.text(30, 750, 'SCORE: ' + this.score, { fontSize: '32px', fill: '#000' });
+    this.levelText = this.add.text(420, 760, 'LEVEL: 2', { fontSize: '22px', fill: '#000' });
+    this.scoreText = this.add.text(30, 760, 'SCORE: ' + this.score, { fontSize: '22px', fill: '#000' });
 
     // Game Restart Space Key
     this.keySpace = this.input.keyboard.addKey('SPACE');

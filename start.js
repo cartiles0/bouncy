@@ -23,16 +23,28 @@ class start extends Phaser.Scene {
     this.load.image('cannon', 'assets/cannon.png');
     this.load.image('ballGreen', 'assets/ballGreen.png');
     this.load.image('background', 'assets/background.jpg');
-
-    this.load.bitmapFont('pixelFont', 'assets/font/font.png', 'assets/font/font.xml');
+    this.load.image('YouWon', 'assets/YouWon.png');
+    this.load.image('GumBall', 'assets/GumBall.png');
+    this.load.image('GameOver', 'assets/GameOver.png');
+    this.load.image('GreatJob', 'assets/GreatJob.png');
   }
 
   create () {
-    this.scene.start('level1', { score: 100 });
-    this.background = this.add.sprite(300, 400, 'background');
+    this.background = this.add.image(300, 400, 'background');
+    this.logo = this.add.image(300, 400, 'GumBall').setScale(.5);
+    this.levelText = this.add.text(200, 550, 'PRESS ENTER TO START', { fontSize: '15px', fill: '#000' });
+    this.tweens.add({
+      targets: this.levelText,
+      alpha: 0,
+      ease: 'Cubic.easeIn',
+      duration: 700,
+      repeat: -1,
+      yoyo: true
+    });
     this.keyEnter = this.input.keyboard.addKey('ENTER');
     this.keyEnter.on('down', function () {
       this.scene.start('level1', { score: 100 });
-    }, this)
+    }, this);
+    //this.scene.start('gameFinished', { score: 100 });
   }
 }
