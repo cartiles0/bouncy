@@ -69,7 +69,7 @@ class level2 extends Phaser.Scene {
       this.scene.start("gameFinished");
     }
 
-    // Top & Bottom Obstacle
+    // Top & Bottom Collider
     this.physics.add.collider(this.ball, this.bottom);
     this.physics.add.collider(this.ball, this.TopL);
     this.physics.add.collider(this.ball, this.TopPinkL);
