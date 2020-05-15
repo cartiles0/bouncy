@@ -9,7 +9,7 @@ class start extends Phaser.Scene {
     this.load.image('obs2', 'assets/obs2.png');
     this.load.image('ball', 'assets/ball.png');
     this.load.image('top', 'assets/top.png');
-    this.load.image('obs1Long', 'assets/obs1Long.png');
+    this.load.image('obs1Long', 'assets/obs1long.png');
     this.load.image('PriceCoin', 'assets/PriceCoin.png');
     this.load.image('PriceFresa', 'assets/PriceFresa.png');
     this.load.image('PriceMenta', 'assets/PriceMenta.png');
