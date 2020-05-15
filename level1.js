@@ -7,24 +7,20 @@ class level1 extends Phaser.Scene {
     this.score = data.score;
   }
 
-
-  preload() {
-    this.load.image('board', 'assets/board.png');
-    this.load.image('obs1', 'assets/obs1.png');
-    this.load.image('obs2', 'assets/obs2.png');
-    this.load.image('ball', 'assets/ball.png');
-    this.load.image('top', 'assets/top.png');
-    this.load.image('obs1Long', 'assets/obs1Long.png');
-
-    this.load.bitmapFont('pixelFont', 'assets/font/font.png', 'assets/font/font.xml');
-  }
   create() {
     // Objects Directions
     this.gameOn = false;
 
     // Background & Top
-    this.board = this.add.sprite(300, 400, 'board').setScale(.24);
-    this.top = this.add.sprite(300, 45, 'top').setScale(.25);
+    this.background = this.add.sprite(300, 400, 'background');
+    this.bottom = this.add.sprite(300, 760, 'bottom').setScale(.24);
+    this.bottom = this.add.sprite(25, 0, 'TopL').setScale(.24);
+    this.bottom = this.add.sprite(125, 0, 'TopPinkL').setScale(.24);
+    this.bottom = this.add.sprite(225, 0, 'TopOraL').setScale(.24);
+    this.bottom = this.add.sprite(375, 0, 'TopOraR').setScale(.24);
+    this.bottom = this.add.sprite(475, 0, 'TopPinkR').setScale(.24);
+    this.bottom = this.add.sprite(575, 0, 'TopR').setScale(.24); 
+    
     this.ballSpeed = 0;
 
     // Cannon & Ball
@@ -32,7 +28,7 @@ class level1 extends Phaser.Scene {
     this.line = new Phaser.Geom.Line();
     
     this.angle = 0;
-    this.cannon = this.add.image(300, 750, 'ball').setScale(.3);
+    this.cannon = this.add.image(300, 700, 'cannon').setScale(.3);
     
     this.ball = this.physics.add.sprite(this.cannon.x, this.cannon.y, 'ball');
     this.ball.setCollideWorldBounds(true).setScale(.2).setBounce(1);
@@ -55,13 +51,13 @@ class level1 extends Phaser.Scene {
     
     /// Pastry Obstacle
     this.pastry1 = this.physics.add.sprite(190, 170, 'obs1Long');
-    this.pastry1.setImmovable().body.setAllowGravity(false);
+    this.pastry1.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
     this.pastry2 = this.physics.add.sprite(410, 320, 'obs1Long');
-    this.pastry2.setImmovable().body.setAllowGravity(false);
+    this.pastry2.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
     this.pastry3 = this.physics.add.sprite(190, 470, 'obs1Long');
-    this.pastry3.setImmovable().body.setAllowGravity(false);
+    this.pastry3.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
     this.pastry4 = this.physics.add.sprite(410, 620, 'obs1Long');
-    this.pastry4.setImmovable().body.setAllowGravity(false);
+    this.pastry4.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
 
     // Obstacle Colliders
     this.physics.add.collider(this.ball, this.pastry1);

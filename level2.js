@@ -7,15 +7,6 @@ class level2 extends Phaser.Scene {
     this.score = data.score;
   }
 
-  preload() {
-    // Image Preload
-    this.load.image('board', 'assets/board.png');
-    this.load.image('obs1', 'assets/obs1.png');
-    this.load.image('obs2', 'assets/obs2.png');
-    this.load.image('ball', 'assets/ball.png');
-    this.load.image('top', 'assets/top.png');
-  }
-
   create() {
     // Objects Directions
     this.dirG1 = 1;
@@ -57,17 +48,17 @@ class level2 extends Phaser.Scene {
 
     // Pastry Obstacle
     this.pastry1 = this.physics.add.sprite(155, 185, 'obs1').setScale(.3);
-    this.pastry1.setImmovable().body.setAllowGravity(false);
-    this.pastry2 = this.physics.add.sprite(445, 335, 'obs1').setScale(.3);;
-    this.pastry2.setImmovable().body.setAllowGravity(false);
+    this.pastry1.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
+    this.pastry2 = this.physics.add.sprite(445, 335, 'obs1').setScale(.3);
+    this.pastry2.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
 
     // Candy Obstacle
-    this.candy1 = this.physics.add.sprite(100, 650, 'obs2').setScale(.3);;
-    this.candy1.setImmovable().body.setAllowGravity(false);
-    this.candy2 = this.physics.add.sprite(300, 525, 'obs2').setScale(.3);;
-    this.candy2.setImmovable().body.setAllowGravity(false);
-    this.candy3 = this.physics.add.sprite(500, 400, 'obs2').setScale(.3);;
-    this.candy3.setImmovable().body.setAllowGravity(false);
+    this.candy1 = this.physics.add.sprite(100, 650, 'obs2').setScale(.3);
+    this.candy1.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
+    this.candy2 = this.physics.add.sprite(300, 525, 'obs2').setScale(.3);
+    this.candy2.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
+    this.candy3 = this.physics.add.sprite(500, 400, 'obs2').setScale(.3);
+    this.candy3.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
 
     // Colliders
     this.physics.add.collider(this.ball, this.pastry1);

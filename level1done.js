@@ -9,7 +9,7 @@ class level1done extends Phaser.Scene {
   }
 
   create() {
-    this.board = this.add.sprite(300, 400, 'board').setScale(.24);
+    this.background = this.add.sprite(300, 400, 'background');
     this.keyEnter = this.input.keyboard.addKey('ENTER');
     this.keyEnter.on('down', function () {
       this.scene.start('level2', { score: this.score });
