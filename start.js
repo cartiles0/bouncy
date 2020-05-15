@@ -45,6 +45,6 @@ class start extends Phaser.Scene {
     this.keyEnter.on('down', function () {
       this.scene.start('level1', { score: 100 });
     }, this);
-    //this.scene.start('gameFinished', { score: 100 });
+    //this.scene.start('level1', { score: 100 });
   }
 }

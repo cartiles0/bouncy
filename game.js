@@ -6,7 +6,7 @@ var config = {
     default:'arcade',
     arcade: {
       gravity: {y : 0},
-      debug: true
+      debug: false
     }
   },
   scene: [start, level1, level1done, level2, gameOVer, gameFinished]
