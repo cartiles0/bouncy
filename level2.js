@@ -3,6 +3,10 @@ class level2 extends Phaser.Scene {
     super({ key: "level2" });
   }
 
+  init(data) {
+    this.score = data.score;
+  }
+
   preload() {
     // Image Preload
     this.load.image('board', 'assets/board.png');
@@ -13,9 +17,6 @@ class level2 extends Phaser.Scene {
   }
 
   create() {
-    //Score
-
-
     // Objects Directions
     this.dirG1 = 1;
     this.dirG2 = -1;
@@ -69,8 +70,8 @@ class level2 extends Phaser.Scene {
     this.candy3.setImmovable().body.setAllowGravity(false);
 
     // Colliders
-    this.physics.add.collider(this.ball, this.pastry1, this.colPastry1, null, this);
-    this.physics.add.collider(this.ball, this.pastry2, this.colPastry2, null, this);
+    this.physics.add.collider(this.ball, this.pastry1);
+    this.physics.add.collider(this.ball, this.pastry2);
     this.physics.add.collider(this.ball, this.candy1);
     this.physics.add.collider(this.ball, this.candy2);
     this.physics.add.collider(this.ball, this.candy3);
@@ -107,50 +108,29 @@ class level2 extends Phaser.Scene {
 
     function prizeCollect(ball, prize) {
       prize.disableBody(true, true);
-      score += 10;
-      scoreText.setText('SCORE: ' + score)
-    }
-
-    //Score
-    var score = 0;
-    var scoreText = this.add.text(30, 750, 'SCORE 0', { fontSize: '32px', fill: '#000' });
-    /*var graphics = this.add.graphics();
-    graphics.fillStyle(0x000000, 1);
-    graphics.beginPath();
-    graphics.moveTo(0, 0);
-    graphics.lineTo(config.width, 0);
-    graphics.lineTo(config.width, 20);
-    graphics.lineTo(0, 20);
-    graphics.lineTo(0, 0);
-
-    graphics.closePath();
-    graphics.fillPath();*/
-
-
-    //this.scoreLabel = this.add.bitmapText(30, 755, "pixelFont", "SCORE ", 36);
-    //this.levelLabel = this.add.bitmapText(450, 755, "pixelFont", "LEVEL ", 36);
-
-    this.collect = function (obj1) {
-      obj1.destroy();
       this.score += 10;
-      this.scoreLabel.text = "SCORE " + this.score;
+      this.scoreText.setText('SCORE: ' + this.score);
     }
+
+    //Score & Level
+    this.levelText = this.add.text(420, 750, 'LEVEL: 2', { fontSize: '32px', fill: '#000' });
+    this.scoreText = this.add.text(30, 750, 'SCORE: ' + this.score, { fontSize: '32px', fill: '#000' });
 
     // Game Restart Space Key
     this.keySpace = this.input.keyboard.addKey('SPACE');
     this.keySpace.on('down', function () {
-      this.scene.restart();
+      this.scene.restart({ score: this.score - 30 });
     }, this);
   }
 
   update() {
     // Drag
-    this.ball.body.drag.x += .1;
-    this.ball.body.drag.y += .1;
+    this.ball.body.drag.x += .2;
+    this.ball.body.drag.y += .2;
 
     // Game Restart for Ball Stopped
     if (this.gameOn && this.ball.body.velocity.x == 0 && this.ball.body.velocity.y == 0) {
-      this.scene.restart();
+      this.scene.restart({ score: this.score - 30 });
     }
 
     // Goal

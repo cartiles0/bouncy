@@ -1,8 +1,12 @@
 class level1 extends Phaser.Scene {
   constructor() {
-    super(
-      {key:"level1"});
+    super({key:"level1"});
   }
+
+  init(data) {
+    this.score = data.score;
+  }
+
 
   preload() {
     this.load.image('board', 'assets/board.png');
@@ -16,11 +20,6 @@ class level1 extends Phaser.Scene {
   }
   create() {
     // Objects Directions
-    this.dirG1 = 1;
-    this.dirG2 = -1;
-    this.dirY1 = -1;
-    this.dirY2 = -1;
-    this.dirY3 = 1;
     this.gameOn = false;
 
     // Background & Top
@@ -31,6 +30,7 @@ class level1 extends Phaser.Scene {
     // Cannon & Ball
     this.gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xfff99, alpha: 0.5 } });
     this.line = new Phaser.Geom.Line();
+    
     this.angle = 0;
     this.cannon = this.add.image(300, 750, 'ball').setScale(.3);
     
@@ -53,7 +53,7 @@ class level1 extends Phaser.Scene {
       }
     }, this);
     
-    // Pastry Obstacle
+    /// Pastry Obstacle
     this.pastry1 = this.physics.add.sprite(190, 170, 'obs1Long');
     this.pastry1.setImmovable().body.setAllowGravity(false);
     this.pastry2 = this.physics.add.sprite(410, 320, 'obs1Long');
@@ -108,42 +108,21 @@ class level1 extends Phaser.Scene {
     this.physics.add.overlap(this.ball, this.prize10, prizeCollect, null, this);
     this.physics.add.overlap(this.ball, this.prize11, prizeCollect, null, this);
     this.physics.add.overlap(this.ball, this.prize12, prizeCollect, null, this);
-    
+
     function prizeCollect (ball, prize) {
       prize.disableBody(true, true);
-      score += 10;
-      scoreText.setText('SCORE: ' + score)
-    }
-
-    //Score
-    var score = 0;
-    var scoreText = this.add.text(30, 750, 'SCORE 0', { fontSize: '32px', fill: '#000' });
-    /*var graphics = this.add.graphics();
-    graphics.fillStyle(0x000000, 1);
-    graphics.beginPath();
-    graphics.moveTo(0, 0);
-    graphics.lineTo(config.width, 0);
-    graphics.lineTo(config.width, 20);
-    graphics.lineTo(0, 20);
-    graphics.lineTo(0, 0);
-
-    graphics.closePath();
-    graphics.fillPath();*/
-
-
-    //this.scoreLabel = this.add.bitmapText(30, 755, "pixelFont", "SCORE ", 36);
-    //this.levelLabel = this.add.bitmapText(450, 755, "pixelFont", "LEVEL ", 36);
-
-    this.collect = function (obj1) {
-      obj1.destroy();
       this.score += 10;
-      this.scoreLabel.text = "SCORE " + this.score;
+      this.scoreText.setText('SCORE: ' + this.score);
     }
+
+    //Score & Level
+    this.levelText = this.add.text(420, 750, 'LEVEL: 1', { fontSize: '32px', fill: '#000' });
+    this.scoreText = this.add.text(30, 750, 'SCORE: ' + this.score, { fontSize: '32px', fill: '#000' });
 
     // Game Restart Space Key
     this.keySpace = this.input.keyboard.addKey('SPACE');
     this.keySpace.on('down', function () {
-      this.scene.restart();
+    this.scene.restart();
     }, this);
   }
   
@@ -159,7 +138,7 @@ class level1 extends Phaser.Scene {
 
     // Goal
     if (this.ball.x > 210 && this.ball.x < 230 && this.ball.y < 100) {
-    this.scene.start("level1done");
+      this.scene.start('level1done', { score: this.score });
     }
   }
 
