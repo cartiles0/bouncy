@@ -1,6 +1,6 @@
 class level1 extends Phaser.Scene {
   constructor() {
-    super({key:"level1"});
+    super({ key: "level1" });
   }
 
   init(data) {
@@ -30,19 +30,20 @@ class level1 extends Phaser.Scene {
     this.TopOraR.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
     this.TopPinkR = this.physics.add.sprite(485, 0, 'TopPinkR').setScale(.24);
     this.TopPinkR.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
-    this.TopR = this.physics.add.sprite(585, 0, 'TopOraR').setScale(.24); 
+    this.TopR = this.physics.add.sprite(585, 0, 'TopOraR').setScale(.24);
     this.TopR.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
 
     // Cannon & Ball
-    this.gfx = this.add.graphics().setDefaultStyles({ lineStyle: { width: 10, color: 0xfff99, alpha: 0.5 } });
+    const defaultStyles = { lineStyle: { width: 10, color: 0xfff99, alpha: 0.5 } };
+    this.gfx = this.add.graphics().setDefaultStyles(defaultStyles);
     this.line = new Phaser.Geom.Line();
     this.angle = 0;
-    
+
     this.cannon = this.add.image(300, 700, 'cannon').setScale(.3);
-    
+
     this.ball = this.physics.add.sprite(300, 700, 'ball').setCircle(100);
     this.ball.setCollideWorldBounds(true).setScale(.2).setBounce(1).disableBody(true, true);
-    
+
 
     this.input.on('pointermove', function (pointer) {
       this.angle = Phaser.Math.Angle.BetweenPoints(this.cannon, pointer);
@@ -51,7 +52,7 @@ class level1 extends Phaser.Scene {
     }, this);
 
     this.input.on('pointerup', function () {
-      if ( !this.gameOn ) {
+      if (!this.gameOn) {
         this.gameOn = true;
         this.ball.enableBody(true, this.cannon.x, this.cannon.y, true, true);
         this.physics.velocityFromRotation(this.angle, 1200, this.ball.body.velocity);
@@ -77,7 +78,7 @@ class level1 extends Phaser.Scene {
     this.physics.add.collider(this.ball, this.TopR, pastryColl, null, this);
     this.physics.add.collider(this.ball, this.TopPinkR, pastryColl, null, this);
     this.physics.add.collider(this.ball, this.TopOraR, pastryColl, null, this);
-    
+
     // Pastry Obstacle
     this.pastry1 = this.physics.add.sprite(160, 170, 'obs1Long').setScale(.85);
     this.pastry1.setImmovable().body.setAllowGravity(false).setFriction(1, 1);
@@ -94,7 +95,7 @@ class level1 extends Phaser.Scene {
     this.physics.add.collider(this.ball, this.pastry3, pastryColl, null, this);
     this.physics.add.collider(this.ball, this.pastry4, pastryColl, null, this);
 
-    function pastryColl (ball, obs) {
+    function pastryColl(ball, obs) {
       this.ballBounce.play();
     }
 
@@ -138,7 +139,7 @@ class level1 extends Phaser.Scene {
     this.physics.add.overlap(this.ball, this.prize11, prizeCollect, null, this);
     this.physics.add.overlap(this.ball, this.prize12, prizeCollect, null, this);
 
-    function prizeCollect (ball, prize) {
+    function prizeCollect(ball, prize) {
       prize.disableBody(true, true);
       this.winPrize.play();
       this.score += 10;
@@ -156,7 +157,7 @@ class level1 extends Phaser.Scene {
       this.scene.restart();
     }, this);
   }
-  
+
   update() {
     // Drag
     this.ball.body.drag.x += .1;
