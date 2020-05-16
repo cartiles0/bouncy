@@ -43,7 +43,7 @@ class start extends Phaser.Scene {
     });
     this.keyEnter = this.input.keyboard.addKey('ENTER');
     this.keyEnter.on('down', function () {
-      this.scene.start('level1', { score: 100 });
+      this.scene.start('level1', { score: 0 });
     }, this);
     //this.scene.start('level1', { score: 100 });
   }

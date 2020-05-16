@@ -35,7 +35,7 @@ class level1 extends Phaser.Scene {
     
     this.cannon = this.add.image(300, 700, 'cannon').setScale(.3);
     
-    this.ball = this.physics.add.sprite(300, 700, 'ball').setCircle(50);
+    this.ball = this.physics.add.sprite(300, 700, 'ball').setCircle(100);
     this.ball.setCollideWorldBounds(true).setScale(.2).setBounce(1).disableBody(true, true);
     
 
