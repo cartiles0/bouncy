@@ -7,7 +7,7 @@ Shoot the Gum Ball and pass through the obstacles collecting as many prize sweet
 The level is over when you reach the top.
 
 ## Demo
-https://cartiles0.github.io/bouncy/
+https://cartiles0.github.io/gumBall/
 
 ## Rules
 Move the pointer on top of the game to active the pointer move in the cannon. When you have chosen the angle click to shoot the ball.
