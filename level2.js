@@ -8,6 +8,12 @@ class level2 extends Phaser.Scene {
   }
 
   create() {
+    // Sounds
+    this.ballBounce = this.sound.add('BallBounce');
+    this.winPrize = this.sound.add('WinPrize');
+    this.victory = this.sound.add('Victory');
+    this.tryAgain = this.sound.add('TryAgain');
+
     // Objects Directions
     this.dirG1 = 1;
     this.dirG2 = -1;
@@ -65,18 +71,19 @@ class level2 extends Phaser.Scene {
 
     function levelFinish(ball, goal) {
       goal.disableBody(true, true);
+      this.victory.play();
       this.score += 100;
       this.scene.start("gameFinished");
     }
 
     // Top & Bottom Collider
-    this.physics.add.collider(this.ball, this.bottom);
-    this.physics.add.collider(this.ball, this.TopL);
-    this.physics.add.collider(this.ball, this.TopPinkL);
-    this.physics.add.collider(this.ball, this.TopOraL);
-    this.physics.add.collider(this.ball, this.TopR);
-    this.physics.add.collider(this.ball, this.TopPinkR);
-    this.physics.add.collider(this.ball, this.TopOraR);
+    this.physics.add.collider(this.ball, this.bottom, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.TopL, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.TopPinkL, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.TopOraL, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.TopR, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.TopPinkR, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.TopOraR, pastryColl, null, this);
 
     // Pastry Obstacle
     this.pastry1 = this.physics.add.sprite(132, 185, 'obs1').setScale(.25);
@@ -93,11 +100,15 @@ class level2 extends Phaser.Scene {
     this.candy3.setImmovable().body.setFriction(1, 1);
 
     // Colliders
-    this.physics.add.collider(this.ball, this.pastry1);
-    this.physics.add.collider(this.ball, this.pastry2);
-    this.physics.add.collider(this.ball, this.candy1);
-    this.physics.add.collider(this.ball, this.candy2);
-    this.physics.add.collider(this.ball, this.candy3);
+    this.physics.add.collider(this.ball, this.pastry1, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.pastry2, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.candy1, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.candy2, pastryColl, null, this);
+    this.physics.add.collider(this.ball, this.candy3, pastryColl, null, this);
+
+    function pastryColl(ball, obs) {
+      this.ballBounce.play();
+    }
 
     // Prizes
     this.prize1 = this.physics.add.sprite(60, 145, 'PriceCoin').setScale(.2);
@@ -131,6 +142,7 @@ class level2 extends Phaser.Scene {
 
     function prizeCollect(ball, prize) {
       prize.disableBody(true, true);
+      this.winPrize.play();
       this.score += 10;
       this.scoreText.setText('SCORE: ' + this.score);
     }
@@ -159,6 +171,7 @@ class level2 extends Phaser.Scene {
 
     // Game Over
     if (this.score < 0) {
+      this.tryAgain.play();
       this.scene.start("gameOver");
     }
 
