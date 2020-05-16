@@ -65,7 +65,7 @@ class level1 extends Phaser.Scene {
     function levelFinish(ball, goal) {
       goal.disableBody(true, true);
       this.victory.play();
-      this.score += 100;
+      //this.score += 100;
       this.scene.start('level1done', { score: this.score });
     }
 
