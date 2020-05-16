@@ -7,7 +7,7 @@ class gameFinished extends Phaser.Scene {
   create() {
     this.background = this.add.sprite(300, 400, 'background');
     this.screen = this.add.image(300, 400, 'YouWon').setScale(.5);
-    this.levelText = this.add.text(180, 550, 'PRESS ENTER TO START AGAIN!', { fontSize: '15px', fill: '#000' });
+    this.levelText = this.add.text(183, 550, 'PRESS ENTER TO PLAY AGAIN!', { fontSize: '15px', fill: '#000' });
     this.tweens.add({
       targets: this.levelText,
       alpha: 0,
