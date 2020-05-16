@@ -5,6 +5,9 @@ class gameFinished extends Phaser.Scene {
   }
 
   create() {
+    // Sound
+    this.confirm = this.sound.add('confirm');
+
     this.background = this.add.sprite(300, 400, 'background');
     this.screen = this.add.image(300, 400, 'YouWon').setScale(.5);
     this.levelText = this.add.text(183, 550, 'PRESS ENTER TO PLAY AGAIN!', { fontSize: '15px', fill: '#000' });
@@ -18,6 +21,7 @@ class gameFinished extends Phaser.Scene {
     });
     this.keyEnter = this.input.keyboard.addKey('ENTER');
     this.keyEnter.on('down', function () {
+      this.confirm.play();
       this.scene.start('start');
     }, this)
   }

@@ -27,9 +27,19 @@ class start extends Phaser.Scene {
     this.load.image('GumBall', 'assets/GumBall.png');
     this.load.image('GameOver', 'assets/GameOver.png');
     this.load.image('GreatJob', 'assets/GreatJob.png');
+
+    this.load.audio('confirm', 'sounds/ConfirmButton.mp3');
+    this.load.audio('WinPrize', 'sounds/WinPrize.mp3');
+    this.load.audio('Victory', 'sounds/Victory.mp3');
+    this.load.audio('TryAgain', 'sounds/TryAgain.mp3');
+    this.load.audio('BallBounce', 'sounds/BallBounce.mp3');
+    this.load.audio('SecretAreaUnlock', 'sounds/SecretAreaUnlock.mp3');
   }
 
   create () {
+    // Sounds
+    this.confirm = this.sound.add('confirm');
+
     this.background = this.add.image(300, 400, 'background');
     this.logo = this.add.image(300, 400, 'GumBall').setScale(.5);
     this.levelText = this.add.text(200, 550, 'PRESS ENTER TO START', { fontSize: '15px', fill: '#000' });
@@ -43,6 +53,7 @@ class start extends Phaser.Scene {
     });
     this.keyEnter = this.input.keyboard.addKey('ENTER');
     this.keyEnter.on('down', function () {
+      this.confirm.play();
       this.scene.start('level1', { score: 0 });
     }, this);
     //this.scene.start('level1', { score: 100 });
